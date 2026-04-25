@@ -1,0 +1,2212 @@
+[
+  {
+    "id": "C001",
+    "name": "Arjun Sharma",
+    "email": "arjun.sharma1@example.com",
+    "location": "Kolkata, India",
+    "skills": [
+      "Angular",
+      "Vue.js",
+      "TypeScript",
+      "TailwindCSS",
+      "JavaScript",
+      "Next.js"
+    ],
+    "experience_years": 2,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Osmania University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 1",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 15%"
+      }
+    ],
+    "open_source_contributions": [
+      "scikit-learn",
+      "django",
+      "pytorch"
+    ],
+    "portfolio_url": "https://github.com/arjunsharma1",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/1.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": true,
+      "passed_assessment": true,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C002",
+    "name": "Priya Menon",
+    "email": "priya.menon2@example.com",
+    "location": "Bangalore, India",
+    "skills": [
+      "Docker",
+      "Azure",
+      "Terraform",
+      "CI/CD",
+      "Ansible",
+      "AWS",
+      "Linux"
+    ],
+    "experience_years": 7,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Andhra University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 2",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 39%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/priyamenon2",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/2.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C003",
+    "name": "Rahul Gupta",
+    "email": "rahul.gupta3@example.com",
+    "location": "Delhi, India",
+    "skills": [
+      "NumPy",
+      "Kafka",
+      "SQL",
+      "Python",
+      "dbt",
+      "Power BI",
+      "Spark"
+    ],
+    "experience_years": 2,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "IIT Bangalore",
+      "tier": 1
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 3",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 53%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/rahulgupta3",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/3.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": true,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C004",
+    "name": "Sneha Reddy",
+    "email": "sneha.reddy4@example.com",
+    "location": "Chennai, India",
+    "skills": [
+      "PostgreSQL",
+      "Spring Boot",
+      "Go",
+      "Docker",
+      "MongoDB",
+      "Django"
+    ],
+    "experience_years": 11,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Pune University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 4",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 40%"
+      }
+    ],
+    "open_source_contributions": [
+      "scikit-learn",
+      "django"
+    ],
+    "portfolio_url": "https://github.com/snehareddy4",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/4.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": true,
+      "passed_assessment": true,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C005",
+    "name": "Karthik Rajan",
+    "email": "karthik.rajan5@example.com",
+    "location": "Kolkata, India",
+    "skills": [
+      "Node.js",
+      "Django",
+      "Kubernetes",
+      "MongoDB",
+      "REST APIs",
+      "Go",
+      "Spring Boot"
+    ],
+    "experience_years": 10,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Anna University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 5",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 53%"
+      }
+    ],
+    "open_source_contributions": [
+      "react"
+    ],
+    "portfolio_url": "https://github.com/karthikrajan5",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/5.pdf",
+    "engagement_signals": {
+      "applied_to_job": false,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": true,
+      "passed_assessment": true,
+      "interview_scheduled": true,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C006",
+    "name": "Divya Nair",
+    "email": "divya.nair6@example.com",
+    "location": "Bangalore, India",
+    "skills": [
+      "Pandas",
+      "Airflow",
+      "Python",
+      "dbt",
+      "Tableau",
+      "Power BI",
+      "Spark",
+      "Kafka"
+    ],
+    "experience_years": 6,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "BITS Pilani",
+      "tier": 1
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 6",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 26%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/divyanair6",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/6.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C007",
+    "name": "Aditya Kumar",
+    "email": "aditya.kumar7@example.com",
+    "location": "Bangalore, India",
+    "skills": [
+      "Redux",
+      "Angular",
+      "Vue.js",
+      "CSS",
+      "TypeScript",
+      "Next.js",
+      "React",
+      "JavaScript",
+      "TailwindCSS",
+      "Webpack"
+    ],
+    "experience_years": 1,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "VIT Vellore",
+      "tier": 2
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 7",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 20%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/adityakumar7",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/7.pdf",
+    "engagement_signals": {
+      "applied_to_job": false,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": true,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C008",
+    "name": "Pooja Iyer",
+    "email": "pooja.iyer8@example.com",
+    "location": "Delhi, India",
+    "skills": [
+      "Spark",
+      "Power BI",
+      "NumPy",
+      "Pandas",
+      "Airflow",
+      "dbt"
+    ],
+    "experience_years": 7,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Osmania University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 8",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 30%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/poojaiyer8",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/8.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C009",
+    "name": "Vikram Singh",
+    "email": "vikram.singh9@example.com",
+    "location": "Chennai, India",
+    "skills": [
+      "MLflow",
+      "LLMs",
+      "Kubernetes",
+      "Hugging Face",
+      "Python",
+      "PyTorch",
+      "FastAPI",
+      "RAG",
+      "CUDA"
+    ],
+    "experience_years": 1,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "NIT Warangal",
+      "tier": 1
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 9",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 51%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/vikramsingh9",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/9.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C010",
+    "name": "Ananya Krishnan",
+    "email": "ananya.krishnan10@example.com",
+    "location": "Hyderabad, India",
+    "skills": [
+      "GCP",
+      "Linux",
+      "CI/CD",
+      "Azure",
+      "Terraform",
+      "Kubernetes"
+    ],
+    "experience_years": 8,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Amrita University",
+      "tier": 2
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 10",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 26%"
+      }
+    ],
+    "open_source_contributions": [
+      "react"
+    ],
+    "portfolio_url": "https://github.com/ananyakrishnan10",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/10.pdf",
+    "engagement_signals": {
+      "applied_to_job": false,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": true,
+      "passed_assessment": true,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C011",
+    "name": "Rohan Patel",
+    "email": "rohan.patel11@example.com",
+    "location": "Mumbai, India",
+    "skills": [
+      "LangChain",
+      "Hugging Face",
+      "MLflow",
+      "PyTorch",
+      "Python",
+      "CUDA",
+      "FastAPI",
+      "RAG"
+    ],
+    "experience_years": 4,
+    "employment_type": "Contract",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Manipal University",
+      "tier": 2
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 11",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 31%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/rohanpatel11",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/11.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": true,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C012",
+    "name": "Meera Joshi",
+    "email": "meera.joshi12@example.com",
+    "location": "Hyderabad, India",
+    "skills": [
+      "Redux",
+      "CSS",
+      "Vue.js",
+      "TypeScript",
+      "Webpack",
+      "JavaScript",
+      "React",
+      "TailwindCSS"
+    ],
+    "experience_years": 12,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Anna University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 12",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 26%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/meerajoshi12",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/12.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": true,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C013",
+    "name": "Suresh Babu",
+    "email": "suresh.babu13@example.com",
+    "location": "Chennai, India",
+    "skills": [
+      "FastAPI",
+      "Redis",
+      "Django",
+      "GraphQL",
+      "Kubernetes",
+      "Python",
+      "Kafka",
+      "Spring Boot"
+    ],
+    "experience_years": 11,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "IIT Delhi",
+      "tier": 1
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 13",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 44%"
+      }
+    ],
+    "open_source_contributions": [
+      "langchain",
+      "huggingface/transformers"
+    ],
+    "portfolio_url": "https://github.com/sureshbabu13",
+    "video_intro_url": "https://loom.com/v/13",
+    "resume_url": "https://example.com/resume/13.pdf",
+    "engagement_signals": {
+      "applied_to_job": false,
+      "responded_to_outreach": false,
+      "submitted_video_demo": true,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C014",
+    "name": "Lakshmi Devi",
+    "email": "lakshmi.devi14@example.com",
+    "location": "Bangalore, India",
+    "skills": [
+      "MLflow",
+      "LLMs",
+      "CUDA",
+      "Transformers",
+      "TensorFlow"
+    ],
+    "experience_years": 6,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Pune University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 14",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 57%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/lakshmidevi14",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/14.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C015",
+    "name": "Nikhil Jain",
+    "email": "nikhil.jain15@example.com",
+    "location": "Pune, India",
+    "skills": [
+      "Transformers",
+      "PyTorch",
+      "Hugging Face",
+      "RAG",
+      "MLflow",
+      "TensorFlow"
+    ],
+    "experience_years": 5,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "JNTU Hyderabad",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 15",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 18%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/nikhiljain15",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/15.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": true,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C016",
+    "name": "Sanjana Rao",
+    "email": "sanjana.rao16@example.com",
+    "location": "Remote, India",
+    "skills": [
+      "React",
+      "TailwindCSS",
+      "Vue.js",
+      "Redux",
+      "CSS"
+    ],
+    "experience_years": 3,
+    "employment_type": "Contract",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "BITS Pilani",
+      "tier": 1
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 16",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 38%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/sanjanarao16",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/16.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": true,
+      "interview_scheduled": true,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C017",
+    "name": "Deepak Verma",
+    "email": "deepak.verma17@example.com",
+    "location": "Delhi, India",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "CI/CD",
+      "Linux",
+      "Azure"
+    ],
+    "experience_years": 4,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Andhra University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 17",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 26%"
+      }
+    ],
+    "open_source_contributions": [
+      "fastapi"
+    ],
+    "portfolio_url": "https://github.com/deepakverma17",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/17.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C018",
+    "name": "Kavya Pillai",
+    "email": "kavya.pillai18@example.com",
+    "location": "Kolkata, India",
+    "skills": [
+      "Kafka",
+      "Java",
+      "REST APIs",
+      "Spring Boot",
+      "Docker",
+      "Django",
+      "Go",
+      "Node.js",
+      "Kubernetes",
+      "GraphQL"
+    ],
+    "experience_years": 2,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Osmania University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 18",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 29%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/kavyapillai18",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/18.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C019",
+    "name": "Abhinav Tiwari",
+    "email": "abhinav.tiwari19@example.com",
+    "location": "Chennai, India",
+    "skills": [
+      "Docker",
+      "GCP",
+      "Linux",
+      "Azure",
+      "Kubernetes",
+      "Jenkins",
+      "Terraform"
+    ],
+    "experience_years": 11,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "IIT Hyderabad",
+      "tier": 1
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 19",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 53%"
+      }
+    ],
+    "open_source_contributions": [
+      "tensorflow",
+      "pandas",
+      "react"
+    ],
+    "portfolio_url": "https://github.com/abhinavtiwari19",
+    "video_intro_url": "https://loom.com/v/19",
+    "resume_url": "https://example.com/resume/19.pdf",
+    "engagement_signals": {
+      "applied_to_job": false,
+      "responded_to_outreach": false,
+      "submitted_video_demo": true,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": true,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C020",
+    "name": "Shreya Agarwal",
+    "email": "shreya.agarwal20@example.com",
+    "location": "Chennai, India",
+    "skills": [
+      "Terraform",
+      "Docker",
+      "AWS",
+      "Kubernetes",
+      "Linux",
+      "Jenkins",
+      "GCP",
+      "CI/CD",
+      "Azure"
+    ],
+    "experience_years": 2,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Osmania University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 20",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 59%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/shreyaagarwal20",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/20.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C021",
+    "name": "Manish Choudhary",
+    "email": "manish.choudhary21@example.com",
+    "location": "Hyderabad, India",
+    "skills": [
+      "Docker",
+      "Spring Boot",
+      "Kafka",
+      "Kubernetes",
+      "Node.js",
+      "Redis",
+      "Go",
+      "GraphQL"
+    ],
+    "experience_years": 9,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Manipal University",
+      "tier": 2
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 21",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 45%"
+      }
+    ],
+    "open_source_contributions": [
+      "flask"
+    ],
+    "portfolio_url": "https://github.com/manishchoudhary21",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/21.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C022",
+    "name": "Ritika Sharma",
+    "email": "ritika.sharma22@example.com",
+    "location": "Pune, India",
+    "skills": [
+      "MLflow",
+      "FastAPI",
+      "Hugging Face",
+      "Kubernetes",
+      "scikit-learn",
+      "PyTorch",
+      "LLMs"
+    ],
+    "experience_years": 11,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Andhra University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 22",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 44%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/ritikasharma22",
+    "video_intro_url": "https://loom.com/v/22",
+    "resume_url": "https://example.com/resume/22.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": true,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C023",
+    "name": "Prasad Kulkarni",
+    "email": "prasad.kulkarni23@example.com",
+    "location": "Mumbai, India",
+    "skills": [
+      "Kubernetes",
+      "Spring Boot",
+      "PostgreSQL",
+      "GraphQL",
+      "Django",
+      "Node.js",
+      "Python",
+      "FastAPI",
+      "Kafka",
+      "Docker"
+    ],
+    "experience_years": 4,
+    "employment_type": "Contract",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "IIIT Bangalore",
+      "tier": 2
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 23",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 42%"
+      }
+    ],
+    "open_source_contributions": [
+      "django",
+      "flask"
+    ],
+    "portfolio_url": "https://github.com/prasadkulkarni23",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/23.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C024",
+    "name": "Swathi Bhat",
+    "email": "swathi.bhat24@example.com",
+    "location": "Remote, India",
+    "skills": [
+      "Jenkins",
+      "Linux",
+      "Docker",
+      "CI/CD",
+      "GCP",
+      "Azure"
+    ],
+    "experience_years": 9,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Pune University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 24",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 29%"
+      }
+    ],
+    "open_source_contributions": [
+      "fastapi"
+    ],
+    "portfolio_url": "https://github.com/swathibhat24",
+    "video_intro_url": "https://loom.com/v/24",
+    "resume_url": "https://example.com/resume/24.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": true,
+      "completed_assessment": true,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C025",
+    "name": "Harish Nambiar",
+    "email": "harish.nambiar25@example.com",
+    "location": "Hyderabad, India",
+    "skills": [
+      "Spring Boot",
+      "Kafka",
+      "Java",
+      "MongoDB",
+      "PostgreSQL"
+    ],
+    "experience_years": 7,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Manipal University",
+      "tier": 2
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 25",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 51%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/harishnambiar25",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/25.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": true,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C026",
+    "name": "Geetha Sundaram",
+    "email": "geetha.sundaram26@example.com",
+    "location": "Hyderabad, India",
+    "skills": [
+      "JavaScript",
+      "Webpack",
+      "Angular",
+      "CSS",
+      "TypeScript",
+      "Vue.js",
+      "Redux"
+    ],
+    "experience_years": 8,
+    "employment_type": "Contract",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "VIT Vellore",
+      "tier": 2
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 26",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 40%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/geethasundaram26",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/26.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": true,
+      "passed_assessment": false,
+      "interview_scheduled": true,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C027",
+    "name": "Ravi Shankar",
+    "email": "ravi.shankar27@example.com",
+    "location": "Chennai, India",
+    "skills": [
+      "NLP",
+      "TensorFlow",
+      "Computer Vision",
+      "Hugging Face",
+      "Python",
+      "Transformers",
+      "CUDA",
+      "scikit-learn",
+      "PyTorch",
+      "LLMs"
+    ],
+    "experience_years": 6,
+    "employment_type": "Contract",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Osmania University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 27",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 37%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/ravishankar27",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/27.pdf",
+    "engagement_signals": {
+      "applied_to_job": false,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C028",
+    "name": "Uma Mehta",
+    "email": "uma.mehta28@example.com",
+    "location": "Mumbai, India",
+    "skills": [
+      "LLMs",
+      "CUDA",
+      "Python",
+      "Kubernetes",
+      "TensorFlow"
+    ],
+    "experience_years": 4,
+    "employment_type": "Contract",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "IIT Delhi",
+      "tier": 1
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 28",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 53%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/umamehta28",
+    "video_intro_url": "https://loom.com/v/28",
+    "resume_url": "https://example.com/resume/28.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": true,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": true,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C029",
+    "name": "Vinay Desai",
+    "email": "vinay.desai29@example.com",
+    "location": "Delhi, India",
+    "skills": [
+      "FastAPI",
+      "Redis",
+      "Python",
+      "Go",
+      "GraphQL",
+      "Spring Boot",
+      "Docker"
+    ],
+    "experience_years": 12,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Osmania University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 29",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 22%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/vinaydesai29",
+    "video_intro_url": "https://loom.com/v/29",
+    "resume_url": "https://example.com/resume/29.pdf",
+    "engagement_signals": {
+      "applied_to_job": false,
+      "responded_to_outreach": false,
+      "submitted_video_demo": true,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C030",
+    "name": "Pallavi Gopal",
+    "email": "pallavi.gopal30@example.com",
+    "location": "Kolkata, India",
+    "skills": [
+      "MLflow",
+      "NLP",
+      "FastAPI",
+      "scikit-learn",
+      "PyTorch",
+      "CUDA",
+      "RAG"
+    ],
+    "experience_years": 1,
+    "employment_type": "Contract",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Pune University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 30",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 45%"
+      }
+    ],
+    "open_source_contributions": [
+      "pandas",
+      "flask"
+    ],
+    "portfolio_url": "https://github.com/pallavigopal30",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/30.pdf",
+    "engagement_signals": {
+      "applied_to_job": false,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C031",
+    "name": "Arun Nair",
+    "email": "arun.nair31@example.com",
+    "location": "Hyderabad, India",
+    "skills": [
+      "Angular",
+      "TypeScript",
+      "Next.js",
+      "Webpack",
+      "Redux",
+      "JavaScript",
+      "CSS"
+    ],
+    "experience_years": 6,
+    "employment_type": "Contract",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "IIIT Bangalore",
+      "tier": 2
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 31",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 59%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/arunnair31",
+    "video_intro_url": "https://loom.com/v/31",
+    "resume_url": "https://example.com/resume/31.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": true,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C032",
+    "name": "Shivangi Yadav",
+    "email": "shivangi.yadav32@example.com",
+    "location": "Remote, India",
+    "skills": [
+      "LLMs",
+      "PyTorch",
+      "CUDA",
+      "RAG",
+      "NLP",
+      "Computer Vision",
+      "MLflow",
+      "LangChain",
+      "scikit-learn"
+    ],
+    "experience_years": 8,
+    "employment_type": "Contract",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Pune University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 32",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 45%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/shivangiyadav32",
+    "video_intro_url": "https://loom.com/v/32",
+    "resume_url": "https://example.com/resume/32.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": true,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C033",
+    "name": "Balaji Venkat",
+    "email": "balaji.venkat33@example.com",
+    "location": "Delhi, India",
+    "skills": [
+      "Ansible",
+      "Kubernetes",
+      "Linux",
+      "Jenkins",
+      "Terraform",
+      "Azure",
+      "Docker",
+      "GCP",
+      "AWS",
+      "CI/CD"
+    ],
+    "experience_years": 12,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "JNTU Hyderabad",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 33",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 33%"
+      }
+    ],
+    "open_source_contributions": [
+      "langchain",
+      "scikit-learn"
+    ],
+    "portfolio_url": "https://github.com/balajivenkat33",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/33.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": true,
+      "passed_assessment": true,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C034",
+    "name": "Nandita Roy",
+    "email": "nandita.roy34@example.com",
+    "location": "Pune, India",
+    "skills": [
+      "Redux",
+      "Vue.js",
+      "Next.js",
+      "React",
+      "JavaScript"
+    ],
+    "experience_years": 9,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "IIT Madras",
+      "tier": 1
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 34",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 36%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/nanditaroy34",
+    "video_intro_url": "https://loom.com/v/34",
+    "resume_url": "https://example.com/resume/34.pdf",
+    "engagement_signals": {
+      "applied_to_job": false,
+      "responded_to_outreach": false,
+      "submitted_video_demo": true,
+      "completed_assessment": true,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C035",
+    "name": "Kartik Malhotra",
+    "email": "kartik.malhotra35@example.com",
+    "location": "Pune, India",
+    "skills": [
+      "TypeScript",
+      "Webpack",
+      "JavaScript",
+      "Angular",
+      "React",
+      "Next.js",
+      "TailwindCSS",
+      "CSS"
+    ],
+    "experience_years": 3,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "IIT Bombay",
+      "tier": 1
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 35",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 48%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/kartikmalhotra35",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/35.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C036",
+    "name": "Revathi Kumar",
+    "email": "revathi.kumar36@example.com",
+    "location": "Bangalore, India",
+    "skills": [
+      "JavaScript",
+      "Next.js",
+      "React",
+      "Redux",
+      "TailwindCSS",
+      "CSS",
+      "TypeScript",
+      "Vue.js",
+      "Webpack"
+    ],
+    "experience_years": 5,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Amrita University",
+      "tier": 2
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 36",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 29%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/revathikumar36",
+    "video_intro_url": "https://loom.com/v/36",
+    "resume_url": "https://example.com/resume/36.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": true,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C037",
+    "name": "Siddharth Ghosh",
+    "email": "siddharth.ghosh37@example.com",
+    "location": "Delhi, India",
+    "skills": [
+      "Terraform",
+      "Docker",
+      "Linux",
+      "Jenkins",
+      "AWS"
+    ],
+    "experience_years": 9,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "SRM University",
+      "tier": 2
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 37",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 51%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/siddharthghosh37",
+    "video_intro_url": "https://loom.com/v/37",
+    "resume_url": "https://example.com/resume/37.pdf",
+    "engagement_signals": {
+      "applied_to_job": false,
+      "responded_to_outreach": false,
+      "submitted_video_demo": true,
+      "completed_assessment": true,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C038",
+    "name": "Lavanya Subramanian",
+    "email": "lavanya.subramanian38@example.com",
+    "location": "Bangalore, India",
+    "skills": [
+      "RAG",
+      "Transformers",
+      "CUDA",
+      "NLP",
+      "Hugging Face",
+      "MLflow",
+      "Kubernetes",
+      "Computer Vision"
+    ],
+    "experience_years": 8,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Anna University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 38",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 51%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/lavanyasubramanian38",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/38.pdf",
+    "engagement_signals": {
+      "applied_to_job": false,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": true,
+      "passed_assessment": true,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C039",
+    "name": "Tarun Mittal",
+    "email": "tarun.mittal39@example.com",
+    "location": "Remote, India",
+    "skills": [
+      "React",
+      "Vue.js",
+      "CSS",
+      "Next.js",
+      "TailwindCSS",
+      "Angular",
+      "Redux",
+      "Webpack",
+      "TypeScript"
+    ],
+    "experience_years": 11,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Osmania University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 39",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 46%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/tarunmittal39",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/39.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": true,
+      "passed_assessment": true,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C040",
+    "name": "Chitra Bose",
+    "email": "chitra.bose40@example.com",
+    "location": "Kolkata, India",
+    "skills": [
+      "Power BI",
+      "SQL",
+      "dbt",
+      "Spark",
+      "Tableau"
+    ],
+    "experience_years": 2,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Amrita University",
+      "tier": 2
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 40",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 55%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/chitrabose40",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/40.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": true,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C041",
+    "name": "Varun Kapoor",
+    "email": "varun.kapoor41@example.com",
+    "location": "Delhi, India",
+    "skills": [
+      "MongoDB",
+      "Node.js",
+      "Go",
+      "PostgreSQL",
+      "Kubernetes",
+      "FastAPI",
+      "Python"
+    ],
+    "experience_years": 11,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "VIT Vellore",
+      "tier": 2
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 41",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 56%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/varunkapoor41",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/41.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": true,
+      "passed_assessment": false,
+      "interview_scheduled": true,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C042",
+    "name": "Rekha Iyer",
+    "email": "rekha.iyer42@example.com",
+    "location": "Mumbai, India",
+    "skills": [
+      "Next.js",
+      "JavaScript",
+      "CSS",
+      "Angular",
+      "TypeScript",
+      "Redux",
+      "TailwindCSS",
+      "Webpack",
+      "React"
+    ],
+    "experience_years": 10,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Anna University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 42",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 24%"
+      }
+    ],
+    "open_source_contributions": [
+      "pytorch",
+      "django"
+    ],
+    "portfolio_url": "https://github.com/rekhaiyer42",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/42.pdf",
+    "engagement_signals": {
+      "applied_to_job": false,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C043",
+    "name": "Sandeep Rajan",
+    "email": "sandeep.rajan43@example.com",
+    "location": "Kolkata, India",
+    "skills": [
+      "Redux",
+      "Webpack",
+      "JavaScript",
+      "Angular",
+      "Vue.js",
+      "TypeScript",
+      "Next.js"
+    ],
+    "experience_years": 10,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Amrita University",
+      "tier": 2
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 43",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 57%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/sandeeprajan43",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/43.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C044",
+    "name": "Jyoti Patel",
+    "email": "jyoti.patel44@example.com",
+    "location": "Bangalore, India",
+    "skills": [
+      "Azure",
+      "Ansible",
+      "Kubernetes",
+      "CI/CD",
+      "AWS"
+    ],
+    "experience_years": 8,
+    "employment_type": "Contract",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Andhra University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 44",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 56%"
+      }
+    ],
+    "open_source_contributions": [
+      "tensorflow",
+      "react"
+    ],
+    "portfolio_url": "https://github.com/jyotipatel44",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/44.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": true,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  },
+  {
+    "id": "C045",
+    "name": "Madan Kumar",
+    "email": "madan.kumar45@example.com",
+    "location": "Bangalore, India",
+    "skills": [
+      "dbt",
+      "Power BI",
+      "Python",
+      "Airflow",
+      "Pandas",
+      "SQL",
+      "Spark",
+      "NumPy"
+    ],
+    "experience_years": 12,
+    "employment_type": "Contract",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "NIT Warangal",
+      "tier": 1
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 45",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 16%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/madankumar45",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/45.pdf",
+    "engagement_signals": {
+      "applied_to_job": false,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": true,
+      "passed_assessment": true,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C046",
+    "name": "Asha Reddy",
+    "email": "asha.reddy46@example.com",
+    "location": "Mumbai, India",
+    "skills": [
+      "TailwindCSS",
+      "JavaScript",
+      "Vue.js",
+      "TypeScript",
+      "Next.js",
+      "Angular",
+      "Redux"
+    ],
+    "experience_years": 3,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "IIT Bombay",
+      "tier": 1
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 46",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 55%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/ashareddy46",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/46.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C047",
+    "name": "Naveen Pillai",
+    "email": "naveen.pillai47@example.com",
+    "location": "Pune, India",
+    "skills": [
+      "CUDA",
+      "Transformers",
+      "FastAPI",
+      "MLflow",
+      "TensorFlow",
+      "PyTorch",
+      "Computer Vision",
+      "scikit-learn"
+    ],
+    "experience_years": 10,
+    "employment_type": "Contract",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "SRM University",
+      "tier": 2
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 47",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 39%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/naveenpillai47",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/47.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": true,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C048",
+    "name": "Sunita Rao",
+    "email": "sunita.rao48@example.com",
+    "location": "Chennai, India",
+    "skills": [
+      "Next.js",
+      "React",
+      "JavaScript",
+      "Vue.js",
+      "Redux",
+      "Webpack",
+      "TailwindCSS",
+      "CSS",
+      "TypeScript",
+      "Angular"
+    ],
+    "experience_years": 4,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "Pune University",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 48",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 55%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/sunitarao48",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/48.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C049",
+    "name": "Gaurav Tiwari",
+    "email": "gaurav.tiwari49@example.com",
+    "location": "Mumbai, India",
+    "skills": [
+      "React",
+      "TailwindCSS",
+      "Vue.js",
+      "Webpack",
+      "CSS",
+      "Redux",
+      "Angular",
+      "JavaScript"
+    ],
+    "experience_years": 4,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "IIT Bombay",
+      "tier": 1
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 49",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 33%"
+      }
+    ],
+    "open_source_contributions": [],
+    "portfolio_url": "https://github.com/gauravtiwari49",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/49.pdf",
+    "engagement_signals": {
+      "applied_to_job": false,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": true,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": false
+    }
+  },
+  {
+    "id": "C050",
+    "name": "Bhavna Sharma",
+    "email": "bhavna.sharma50@example.com",
+    "location": "Kolkata, India",
+    "skills": [
+      "PyTorch",
+      "TensorFlow",
+      "LangChain",
+      "LLMs",
+      "FastAPI",
+      "NLP",
+      "MLflow",
+      "scikit-learn"
+    ],
+    "experience_years": 2,
+    "employment_type": "Full-time",
+    "education": {
+      "degree": "B.Tech Computer Science",
+      "institution": "JNTU Hyderabad",
+      "tier": 3
+    },
+    "projects": [
+      {
+        "name": "Project Alpha 50",
+        "description": "Production ML/software system",
+        "is_real_world": true,
+        "impact": "Improved efficiency by 45%"
+      }
+    ],
+    "open_source_contributions": [
+      "langchain",
+      "scikit-learn"
+    ],
+    "portfolio_url": "https://github.com/bhavnasharma50",
+    "video_intro_url": null,
+    "resume_url": "https://example.com/resume/50.pdf",
+    "engagement_signals": {
+      "applied_to_job": true,
+      "responded_to_outreach": false,
+      "submitted_video_demo": false,
+      "completed_assessment": false,
+      "passed_assessment": false,
+      "interview_scheduled": false,
+      "has_open_source": true
+    }
+  }
+]

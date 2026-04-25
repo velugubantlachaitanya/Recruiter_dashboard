@@ -1,0 +1,29 @@
+Senior ML Engineer – AI Products
+Company: NovaBridge Technologies (Series B, Hyderabad + Remote)
+
+We are looking for a passionate Senior ML Engineer to join our AI Products team.
+You will build and deploy production ML models and integrate LLMs into our SaaS platform.
+
+Requirements:
+- 5+ years ML/AI experience
+- Python, PyTorch, TensorFlow (proficient)
+- LLM/Transformer fine-tuning, RAG pipelines, LangChain
+- MLflow or similar experiment tracking
+- FastAPI backend framework
+- AWS or GCP cloud deployment
+- Docker, Kubernetes
+
+Nice to have:
+- Hugging Face contributions
+- CUDA / GPU optimization experience
+- Open-source ML contributions
+
+Responsibilities:
+- Train, evaluate, and deploy production ML models
+- Build LLM-powered features for our AI SaaS platform
+- Collaborate with engineers on model serving infrastructure
+- Define ML best practices and mentor junior engineers
+
+Location: Hyderabad, India (hybrid/remote OK)
+Employment: Full-time
+Compensation: Rs. 30-50 LPA + equity + ESOPs

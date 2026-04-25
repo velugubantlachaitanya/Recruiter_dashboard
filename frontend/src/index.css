@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { background: #08080f; color: #f0f0ff; min-height: 100vh; }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(124,111,247,0.4); border-radius: 99px; }
+}
+
+@layer components {
+  .card { @apply bg-[#13132a] border border-white/[0.07] rounded-2xl p-6; }
+  .card-sm { @apply bg-[#13132a] border border-white/[0.07] rounded-xl p-4; }
+  .btn-primary { @apply flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-[#7c6ff7] to-[#5a8cf8] text-white shadow-lg shadow-purple-900/40 hover:shadow-purple-700/50 hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none; }
+  .btn-secondary { @apply flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm bg-white/[0.05] border border-white/[0.08] text-white/80 hover:bg-white/[0.09] hover:border-purple-500/40 transition-all duration-200 disabled:opacity-40; }
+  .input { @apply w-full bg-[#0f0f1e] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white/90 placeholder-white/20 outline-none focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/10 transition-all; }
+  .tag { @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-500/10 text-purple-300 border border-purple-500/20; }
+  .score-bar-track { @apply w-full h-1.5 bg-white/[0.06] rounded-full overflow-hidden; }
+}
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+@keyframes spin { to { transform:rotate(360deg); } }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.4;} }
+.animate-fade-up { animation: fadeUp .35s ease both; }
+.spinner { animation: spin 1s linear infinite; }
+.pulse-dot { animation: pulse 1.6s ease-in-out infinite; }
