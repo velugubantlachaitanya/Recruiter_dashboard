@@ -75,9 +75,8 @@ def health():
 
 
 # ── Resume PDF (generate on-the-fly) ─────────────────────────────────────────
-@app.get("/api/resume/{candidate_id}")
-def api_resume(candidate_id: str):
-    """Generate and return a professional PDF resume for the candidate."""
+def _get_resume_pdf(candidate_id: str):
+    """Shared helper: load candidate + generate PDF bytes."""
     candidates = load_candidates()
     cand_map   = {c["id"]: c for c in candidates}
     candidate  = cand_map.get(candidate_id)
@@ -87,6 +86,23 @@ def api_resume(candidate_id: str):
         pdf_bytes = generate_resume_pdf(candidate)
     except Exception as e:
         raise HTTPException(500, f"Resume generation failed: {e}")
+    return candidate, pdf_bytes
+
+@app.get("/api/resume/{candidate_id}/view")
+def api_resume_view(candidate_id: str):
+    """Return PDF inline — opens in browser tab."""
+    candidate, pdf_bytes = _get_resume_pdf(candidate_id)
+    name_slug = candidate["name"].replace(" ", "_")
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'inline; filename="{name_slug}_Resume.pdf"'},
+    )
+
+@app.get("/api/resume/{candidate_id}")
+def api_resume(candidate_id: str):
+    """Return PDF as attachment — triggers browser download."""
+    candidate, pdf_bytes = _get_resume_pdf(candidate_id)
     name_slug = candidate["name"].replace(" ", "_")
     return Response(
         content=pdf_bytes,

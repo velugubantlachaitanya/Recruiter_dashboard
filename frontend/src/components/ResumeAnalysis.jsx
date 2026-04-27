@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import ScoreBar from './ScoreBar'
-import { viewResume, downloadResume } from '../lib/resumeUtils'
+import { API_BASE } from '../lib/api'
 
 const FIT_STYLES = {
   'Excellent Fit': 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30',
@@ -22,8 +21,7 @@ function Pill({ label, color }) {
   )
 }
 
-export default function ResumeAnalysis({ analysis, candidateId, candidateName, resumeUrl }) {
-  const [resumeLoading, setResumeLoading] = useState(false)
+export default function ResumeAnalysis({ analysis, candidateId, candidateName }) {
   if (!analysis) return null
 
   const {
@@ -63,17 +61,19 @@ export default function ResumeAnalysis({ analysis, candidateId, candidateName, r
 
         {/* Resume buttons */}
         <div className="flex gap-2">
-          <button
-            className="btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5"
-            onClick={() => viewResume(resumeUrl, candidateName)}>
+          <a
+            href={`${API_BASE}/api/resume/${candidateId}/view`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5">
             👁 View Resume
-          </button>
-          <button
-            className="btn-primary text-xs px-3 py-1.5 flex items-center gap-1.5"
-            onClick={() => downloadResume(candidateId, candidateName, resumeUrl, setResumeLoading)}
-            disabled={resumeLoading}>
-            {resumeLoading ? '⏳ Generating…' : '⬇ Download PDF'}
-          </button>
+          </a>
+          <a
+            href={`${API_BASE}/api/resume/${candidateId}`}
+            download={`${(candidateName || 'Candidate').replace(/\s+/g,'_')}_Resume.pdf`}
+            className="btn-primary text-xs px-3 py-1.5 flex items-center gap-1.5">
+            ⬇ Download PDF
+          </a>
         </div>
       </div>
 

@@ -4,7 +4,7 @@ import StarRating from './StarRating'
 import ScoreBar from './ScoreBar'
 import ChatSimulator from './ChatSimulator'
 import ResumeAnalysis from './ResumeAnalysis'
-import { viewResume, downloadResume } from '../lib/resumeUtils'
+import { API_BASE } from '../lib/api'
 
 const AVATAR_COLORS = ['#7c6ff7','#5a8cf8','#34d399','#fbbf24','#f87171','#a78bfa']
 
@@ -33,8 +33,7 @@ function InterviewBadge({ interview }) {
 }
 
 export default function CandidateCard({ candidate, index, onEngage, onInterview, loading }) {
-  const [expanded, setExpanded]         = useState(false)
-  const [resumeLoading, setResumeLoading] = useState(false)
+  const [expanded, setExpanded] = useState(false)
   const color    = AVATAR_COLORS[index % AVATAR_COLORS.length]
   const bd       = candidate.match_breakdown || candidate.breakdown || {}
   const stars    = candidate.star_rating || 1
@@ -125,21 +124,23 @@ export default function CandidateCard({ candidate, index, onEngage, onInterview,
 
           {/* Actions */}
           <div className="flex gap-2 flex-wrap">
-            <button
-              className="btn-secondary text-xs px-4 py-2 flex items-center gap-1.5"
-              onClick={() => viewResume(candidate.resume_url, candidate.name)}>
+            <a
+              href={`${API_BASE}/api/resume/${candidateId}/view`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary text-xs px-4 py-2 flex items-center gap-1.5">
               👁 View Resume
-            </button>
-            <button
-              className="btn-primary text-xs px-4 py-2 flex items-center gap-1.5"
-              onClick={() => downloadResume(candidateId, candidate.name, candidate.resume_url, setResumeLoading)}
-              disabled={resumeLoading}>
-              {resumeLoading ? '⏳ Generating…' : '⬇ Download Resume'}
-            </button>
-            <button className="btn-secondary text-xs px-4 py-2 ml-auto" onClick={() => onEngage(candidateId)} disabled={loading || resumeLoading}>
+            </a>
+            <a
+              href={`${API_BASE}/api/resume/${candidateId}`}
+              download={`${(candidate.name || 'Candidate').replace(/\s+/g,'_')}_Resume.pdf`}
+              className="btn-primary text-xs px-4 py-2 flex items-center gap-1.5">
+              ⬇ Download Resume
+            </a>
+            <button className="btn-secondary text-xs px-4 py-2 ml-auto" onClick={() => onEngage(candidateId)} disabled={loading}>
               {loading ? '⏳' : '📧'} Simulate Outreach
             </button>
-            <button className="btn-secondary text-xs px-4 py-2" onClick={() => onInterview(candidateId)} disabled={loading || resumeLoading}>
+            <button className="btn-secondary text-xs px-4 py-2" onClick={() => onInterview(candidateId)} disabled={loading}>
               🎤 AI Interview
             </button>
           </div>
@@ -149,7 +150,6 @@ export default function CandidateCard({ candidate, index, onEngage, onInterview,
             analysis={candidate.resume_analysis}
             candidateId={candidateId}
             candidateName={candidate.name}
-            resumeUrl={candidate.resume_url}
           />
 
           {/* Chat simulation */}

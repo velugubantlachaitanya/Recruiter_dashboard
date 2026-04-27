@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import StarRating from './StarRating'
 import ScoreBar from './ScoreBar'
-import { downloadResume } from '../lib/resumeUtils'
+import { API_BASE } from '../lib/api'
 
 const REC_STYLE = {
   '🟢 Highly Recommended': 'text-emerald-400 bg-emerald-500/10 border-emerald-500/25',
@@ -11,30 +11,28 @@ const REC_STYLE = {
   '🔴 Low Priority':       'text-red-400 bg-red-500/10 border-red-500/25',
 }
 
-function ResumeButtons({ candidateId, candidateName, resumeUrl }) {
-  const [loading, setLoading] = useState(false)
-  const viewerUrl = resumeUrl
-    ? `https://docs.google.com/viewer?url=${encodeURIComponent(resumeUrl)}&embedded=false`
-    : null
+function ResumeButtons({ candidateId, candidateName }) {
+  // View endpoint: serves PDF inline so it opens in a browser tab
+  const viewUrl     = `${API_BASE}/api/resume/${candidateId}/view`
+  // Download endpoint: serves PDF as attachment so the browser saves the file
+  const downloadUrl = `${API_BASE}/api/resume/${candidateId}`
+  const safeName    = (candidateName || 'Candidate').replace(/\s+/g, '_')
+
   return (
     <div className="flex flex-col gap-1.5">
-      {viewerUrl ? (
-        <a
-          href={viewerUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[10px] px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10 text-white/60 hover:text-white hover:border-purple-500/40 transition-colors text-center">
-          👁 View
-        </a>
-      ) : (
-        <span className="text-[10px] px-2.5 py-1 text-white/25 text-center">No resume</span>
-      )}
-      <button
-        onClick={() => downloadResume(candidateId, candidateName, resumeUrl, setLoading)}
-        disabled={loading}
-        className="text-[10px] px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/25 text-purple-300 hover:bg-purple-500/20 transition-colors cursor-pointer disabled:opacity-50">
-        {loading ? '⏳' : '⬇ Download'}
-      </button>
+      <a
+        href={viewUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-[10px] px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10 text-white/60 hover:text-white hover:border-purple-500/40 transition-colors text-center">
+        👁 View
+      </a>
+      <a
+        href={downloadUrl}
+        download={`${safeName}_Resume.pdf`}
+        className="text-[10px] px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/25 text-purple-300 hover:bg-purple-500/20 transition-colors text-center">
+        ⬇ Download
+      </a>
     </div>
   )
 }
@@ -131,7 +129,7 @@ export default function ShortlistTable({ shortlist, onExport }) {
                       </span>
                     </td>
                     <td className="px-4 py-3">
-                      <ResumeButtons candidateId={e.candidate_id} candidateName={e.name} resumeUrl={e.resume_url} />
+                      <ResumeButtons candidateId={e.candidate_id} candidateName={e.name} />
                     </td>
                   </tr>
                 )
