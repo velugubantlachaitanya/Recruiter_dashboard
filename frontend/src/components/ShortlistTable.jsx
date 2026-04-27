@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import StarRating from './StarRating'
 import ScoreBar from './ScoreBar'
 import { handleResume } from '../lib/resumeUtils'
@@ -8,6 +9,26 @@ const REC_STYLE = {
   '🟡 Good Potential':     'text-yellow-400 bg-yellow-500/10 border-yellow-500/25',
   '🟠 Needs Review':       'text-orange-400 bg-orange-500/10 border-orange-500/25',
   '🔴 Low Priority':       'text-red-400 bg-red-500/10 border-red-500/25',
+}
+
+function ResumeButtons({ candidateId, candidateName }) {
+  const [loading, setLoading] = useState(false)
+  return (
+    <div className="flex flex-col gap-1.5">
+      <button
+        onClick={() => handleResume(candidateId, candidateName, 'view', setLoading)}
+        disabled={loading}
+        className="text-[10px] px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10 text-white/60 hover:text-white hover:border-purple-500/40 transition-colors cursor-pointer disabled:opacity-50">
+        {loading ? '⏳' : '👁 View'}
+      </button>
+      <button
+        onClick={() => handleResume(candidateId, candidateName, 'download', setLoading)}
+        disabled={loading}
+        className="text-[10px] px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/25 text-purple-300 hover:bg-purple-500/20 transition-colors cursor-pointer disabled:opacity-50">
+        {loading ? '⏳' : '⬇ Download'}
+      </button>
+    </div>
+  )
 }
 
 export default function ShortlistTable({ shortlist, onExport }) {
@@ -102,18 +123,7 @@ export default function ShortlistTable({ shortlist, onExport }) {
                       </span>
                     </td>
                     <td className="px-4 py-3">
-                      <div className="flex flex-col gap-1.5">
-                        <button
-                          onClick={() => handleResume(e.candidate_id, e.name, 'view')}
-                          className="text-[10px] px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10 text-white/60 hover:text-white hover:border-purple-500/40 transition-colors cursor-pointer">
-                          👁 View
-                        </button>
-                        <button
-                          onClick={() => handleResume(e.candidate_id, e.name, 'download')}
-                          className="text-[10px] px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/25 text-purple-300 hover:bg-purple-500/20 transition-colors cursor-pointer">
-                          ⬇ Download
-                        </button>
-                      </div>
+                      <ResumeButtons candidateId={e.candidate_id} candidateName={e.name} />
                     </td>
                   </tr>
                 )

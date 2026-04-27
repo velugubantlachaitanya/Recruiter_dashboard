@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import ScoreBar from './ScoreBar'
 import { handleResume } from '../lib/resumeUtils'
 
@@ -22,6 +23,7 @@ function Pill({ label, color }) {
 }
 
 export default function ResumeAnalysis({ analysis, candidateId, candidateName }) {
+  const [resumeLoading, setResumeLoading] = useState(false)
   if (!analysis) return null
 
   const {
@@ -59,15 +61,19 @@ export default function ResumeAnalysis({ analysis, candidateId, candidateName })
           )}
         </div>
 
-        {/* Resume buttons — use fetch+blob to ensure proxy works */}
+        {/* Resume buttons — fetch+blob ensures proxy works */}
         <div className="flex gap-2">
-          <button className="btn-secondary text-xs px-3 py-1.5"
-            onClick={() => handleResume(candidateId, candidateName, 'view')}>
-            👁 View Resume
+          <button
+            className="btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5"
+            onClick={() => handleResume(candidateId, candidateName, 'view', setResumeLoading)}
+            disabled={resumeLoading}>
+            {resumeLoading ? '⏳ Loading…' : '👁 View Resume'}
           </button>
-          <button className="btn-primary text-xs px-3 py-1.5"
-            onClick={() => handleResume(candidateId, candidateName, 'download')}>
-            ⬇ Download PDF
+          <button
+            className="btn-primary text-xs px-3 py-1.5 flex items-center gap-1.5"
+            onClick={() => handleResume(candidateId, candidateName, 'download', setResumeLoading)}
+            disabled={resumeLoading}>
+            {resumeLoading ? '⏳ Loading…' : '⬇ Download PDF'}
           </button>
         </div>
       </div>

@@ -1,29 +1,60 @@
 import { apiFetch } from './api'
 
 /**
- * Fetch the resume PDF via apiFetch (goes through Vite proxy / VITE_API_URL)
- * then open it in a new tab or trigger a download.
+ * View or download a candidate resume PDF.
+ * Uses fetch() so it always goes through the Vite proxy / VITE_API_URL.
+ *
+ * action = 'view'     → opens PDF in a new browser tab
+ * action = 'download' → saves PDF to disk
  */
-export async function handleResume(candidateId, candidateName, action = 'download') {
+export async function handleResume(candidateId, candidateName, action = 'download', setLoading) {
+  if (setLoading) setLoading(true)
   try {
     const res = await apiFetch(`/api/resume/${candidateId}`)
-    if (!res.ok) throw new Error(`Server returned ${res.status}`)
+    if (!res.ok) {
+      const msg = await res.text().catch(() => res.statusText)
+      throw new Error(`Server error ${res.status}: ${msg}`)
+    }
     const blob = await res.blob()
+    if (blob.size === 0) throw new Error('Empty file received from server')
+
     const blobUrl = URL.createObjectURL(blob)
+    const safeName = (candidateName || 'Candidate').replace(/\s+/g, '_')
 
     if (action === 'view') {
-      window.open(blobUrl, '_blank')
+      // Open in new tab — browser PDF viewer renders it inline
+      const tab = window.open('', '_blank')
+      if (tab) {
+        tab.location.href = blobUrl
+      } else {
+        // Popup blocked fallback — force download instead
+        const a = document.createElement('a')
+        a.href = blobUrl
+        a.download = `${safeName}_Resume.pdf`
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+      }
     } else {
+      // Download
       const a = document.createElement('a')
       a.href = blobUrl
-      a.download = `${(candidateName || 'Candidate').replace(/\s+/g, '_')}_Resume.pdf`
+      a.download = `${safeName}_Resume.pdf`
       document.body.appendChild(a)
       a.click()
       document.body.removeChild(a)
     }
-    // Revoke blob URL after 30s
-    setTimeout(() => URL.revokeObjectURL(blobUrl), 30000)
+
+    // Revoke blob URL after 60s to free memory
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 60000)
   } catch (err) {
-    alert(`Resume unavailable: ${err.message}`)
+    const msg = err.message || 'Unknown error'
+    if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
+      alert('Cannot reach the backend server.\n\nMake sure the backend is running at http://localhost:8000\n\nError: ' + msg)
+    } else {
+      alert('Resume error: ' + msg)
+    }
+  } finally {
+    if (setLoading) setLoading(false)
   }
 }

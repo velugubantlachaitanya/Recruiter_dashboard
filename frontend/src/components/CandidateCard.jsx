@@ -33,7 +33,8 @@ function InterviewBadge({ interview }) {
 }
 
 export default function CandidateCard({ candidate, index, onEngage, onInterview, loading }) {
-  const [expanded, setExpanded] = useState(false)
+  const [expanded, setExpanded]         = useState(false)
+  const [resumeLoading, setResumeLoading] = useState(false)
   const color    = AVATAR_COLORS[index % AVATAR_COLORS.length]
   const bd       = candidate.match_breakdown || candidate.breakdown || {}
   const stars    = candidate.star_rating || 1
@@ -124,18 +125,22 @@ export default function CandidateCard({ candidate, index, onEngage, onInterview,
 
           {/* Actions */}
           <div className="flex gap-2 flex-wrap">
-            <button className="btn-secondary text-xs px-4 py-2"
-              onClick={() => handleResume(candidateId, candidate.name, 'view')}>
-              👁 View Resume
+            <button
+              className="btn-secondary text-xs px-4 py-2 flex items-center gap-1.5"
+              onClick={() => handleResume(candidateId, candidate.name, 'view', setResumeLoading)}
+              disabled={resumeLoading}>
+              {resumeLoading ? '⏳' : '👁'} View Resume
             </button>
-            <button className="btn-primary text-xs px-4 py-2"
-              onClick={() => handleResume(candidateId, candidate.name, 'download')}>
-              ⬇ Download Resume
+            <button
+              className="btn-primary text-xs px-4 py-2 flex items-center gap-1.5"
+              onClick={() => handleResume(candidateId, candidate.name, 'download', setResumeLoading)}
+              disabled={resumeLoading}>
+              {resumeLoading ? '⏳' : '⬇'} Download Resume
             </button>
-            <button className="btn-secondary text-xs px-4 py-2 ml-auto" onClick={() => onEngage(candidateId)} disabled={loading}>
+            <button className="btn-secondary text-xs px-4 py-2 ml-auto" onClick={() => onEngage(candidateId)} disabled={loading || resumeLoading}>
               {loading ? '⏳' : '📧'} Simulate Outreach
             </button>
-            <button className="btn-secondary text-xs px-4 py-2" onClick={() => onInterview(candidateId)} disabled={loading}>
+            <button className="btn-secondary text-xs px-4 py-2" onClick={() => onInterview(candidateId)} disabled={loading || resumeLoading}>
               🎤 AI Interview
             </button>
           </div>
