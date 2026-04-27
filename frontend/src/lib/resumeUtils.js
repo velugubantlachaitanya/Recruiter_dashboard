@@ -1,58 +1,64 @@
-import { apiFetch } from './api'
+import { binaryFetch } from './api'
+import { showToast } from '../components/Toast'
 
 /**
- * View or download a candidate resume PDF.
- * Uses fetch() so it always goes through the Vite proxy / VITE_API_URL.
+ * View or download a candidate resume PDF via fetch+blob.
+ * Uses binaryFetch so it goes through Vite proxy / VITE_API_URL.
  *
  * action = 'view'     → opens PDF in a new browser tab
- * action = 'download' → saves PDF to disk
+ * action = 'download' → saves PDF to disk as CandidateName_Resume.pdf
  */
 export async function handleResume(candidateId, candidateName, action = 'download', setLoading) {
   if (setLoading) setLoading(true)
   try {
-    const res = await apiFetch(`/api/resume/${candidateId}`)
+    const res = await binaryFetch(`/api/resume/${candidateId}`)
+
     if (!res.ok) {
-      const msg = await res.text().catch(() => res.statusText)
-      throw new Error(`Server error ${res.status}: ${msg}`)
+      throw new Error(`Server returned ${res.status} — ${res.statusText}`)
     }
+
     const blob = await res.blob()
-    if (blob.size === 0) throw new Error('Empty file received from server')
+    if (blob.size === 0) throw new Error('Empty file received')
 
     const blobUrl = URL.createObjectURL(blob)
     const safeName = (candidateName || 'Candidate').replace(/\s+/g, '_')
 
     if (action === 'view') {
-      // Open in new tab — browser PDF viewer renders it inline
       const tab = window.open('', '_blank')
       if (tab) {
         tab.location.href = blobUrl
+        showToast(`Opening ${candidateName}'s resume in new tab`, 'success', 3000)
       } else {
-        // Popup blocked fallback — force download instead
+        // Popup blocked — fall back to download
         const a = document.createElement('a')
         a.href = blobUrl
         a.download = `${safeName}_Resume.pdf`
         document.body.appendChild(a)
         a.click()
         document.body.removeChild(a)
+        showToast('Popup blocked — resume downloaded instead', 'info', 4000)
       }
     } else {
-      // Download
       const a = document.createElement('a')
       a.href = blobUrl
       a.download = `${safeName}_Resume.pdf`
       document.body.appendChild(a)
       a.click()
       document.body.removeChild(a)
+      showToast(`Downloading ${candidateName}'s resume…`, 'success', 3000)
     }
 
-    // Revoke blob URL after 60s to free memory
     setTimeout(() => URL.revokeObjectURL(blobUrl), 60000)
   } catch (err) {
     const msg = err.message || 'Unknown error'
-    if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
-      alert('Cannot reach the backend server.\n\nMake sure the backend is running at http://localhost:8000\n\nError: ' + msg)
+    if (msg.includes('Failed to fetch') || msg.includes('NetworkError') || msg.includes('fetch')) {
+      showToast(
+        'Backend server is not running.\nPlease double-click run.bat to start the servers.',
+        'error',
+        8000
+      )
     } else {
-      alert('Resume error: ' + msg)
+      showToast('Resume error: ' + msg, 'error', 6000)
     }
   } finally {
     if (setLoading) setLoading(false)

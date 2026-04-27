@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Zap, LayoutDashboard, Users } from 'lucide-react'
 import Dashboard from './pages/Dashboard'
 import RecruiterView from './pages/RecruiterView'
+import Toast from './components/Toast'
 
 const NAV = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, sub: 'Step-by-step pipeline' },
@@ -60,6 +61,9 @@ export default function App() {
       <main className="flex-1 ml-60 flex flex-col min-h-screen">
         {page === 'dashboard' ? <Dashboard /> : <RecruiterView />}
       </main>
+
+      {/* Global toast notifications */}
+      <Toast />
     </div>
   )
 }
