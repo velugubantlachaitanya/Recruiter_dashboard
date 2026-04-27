@@ -1,80 +1,41 @@
 # ============================================================
-# JD Parser — Claude API extracts structured JD fields
+# JD Parser — Heuristic-based mock (bypasses Claude API)
 # ============================================================
 
 import json
-import anthropic
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-_client = None
-
-
-def get_client() -> anthropic.Anthropic:
-    global _client
-    if _client is None:
-        api_key = os.getenv("ANTHROPIC_API_KEY", "")
-        _client = anthropic.Anthropic(api_key=api_key)
-    return _client
-
 
 def parse_jd(jd_text: str) -> dict:
     """
-    Extract structured information from a raw Job Description using Claude.
-    Returns a dict matching the ParsedJD schema.
+    Mock implementation: Extracts structured information from a raw Job Description
+    using simple heuristics to avoid API costs.
     """
-    client = get_client()
-
-    prompt = f"""You are an expert JD parser for a recruiting platform. Extract structured information from the following Job Description.
-
-Return ONLY a valid JSON object with EXACTLY these fields (no markdown fences, no explanation):
-{{
-  "role_title": "exact job title",
-  "required_skills": ["skill1", "skill2", ...],
-  "preferred_skills": ["nice_to_have1", ...],
-  "min_experience_years": 4,
-  "employment_type": "Full-time",
-  "location": "City, Country",
-  "remote_allowed": true,
-  "education_required": "B.Tech/B.E. in CS or related",
-  "tier1_preferred": false,
-  "domain_keywords": ["keyword1", "keyword2", ...]
-}}
-
-Rules:
-- required_skills: must-have technical skills only (max 10)
-- preferred_skills: nice-to-have skills (max 8)
-- employment_type: "Full-time", "Part-time", or "Contract"
-- remote_allowed: true if mentions remote/hybrid
-- tier1_preferred: true if mentions IIT/NIT/BITS/premium institutes
-- domain_keywords: industry/domain terms (AI, FinTech, SaaS, etc.)
-
-Job Description:
-{jd_text}"""
-
-    response = client.messages.create(
-        model="claude-sonnet-4-5",
-        max_tokens=1024,
-        messages=[{"role": "user", "content": prompt}]
-    )
-
-    raw = response.content[0].text.strip()
+    text = jd_text.lower()
     
-    # Strip markdown fences if present (json, JSON, etc.)
-    if raw.startswith("```"):
-        lines = raw.split("\n")
-        raw = "\n".join(lines[1:])  # Skip first line with ```
-        if raw.endswith("```"):
-            raw = raw[:-3]
-        raw = raw.strip()
+    # Determine Role
+    role = "Software Engineer"
+    if "machine learning" in text or "ml engineer" in text or "ai " in text:
+        role = "Senior ML Engineer"
+    elif "data" in text:
+        role = "Data Scientist"
+    elif "frontend" in text or "react" in text:
+        role = "Frontend Developer"
+
+    # Determine required skills
+    possible_skills = ["python", "pytorch", "tensorflow", "react", "node.js", "aws", "gcp", "docker", "kubernetes", "sql", "java", "c++", "llm", "langchain", "fastapi"]
+    required_skills = [s for s in possible_skills if s in text]
     
-    # Find the first { and last } to extract JSON
-    start_idx = raw.find('{')
-    end_idx = raw.rfind('}')
-    
-    if start_idx != -1 and end_idx != -1:
-        raw = raw[start_idx:end_idx+1]
-    
-    return json.loads(raw.strip())
+    if not required_skills:
+        required_skills = ["Python", "Machine Learning"] # fallback
+
+    return {
+        "role_title": role,
+        "required_skills": [s.title() for s in required_skills[:5]],
+        "preferred_skills": [s.title() for s in required_skills[5:]] if len(required_skills) > 5 else ["AWS", "Docker"],
+        "min_experience_years": 5 if "senior" in text else 2,
+        "employment_type": "Full-time",
+        "location": "Remote" if "remote" in text else "Hyderabad, India",
+        "remote_allowed": "remote" in text or "hybrid" in text,
+        "education_required": "B.Tech/B.E. in CS or related",
+        "tier1_preferred": "iit" in text or "nit" in text or "bits" in text,
+        "domain_keywords": ["AI", "SaaS"] if "ai" in text else ["Software"]
+    }

@@ -25,7 +25,7 @@ from agents.engagement_agent import (
     simulate_outreach_conversation,
     run_ai_interview,
 )
-from agents.scorer import generate_shortlist, compute_combined_score, get_star_rating
+from agents.scorer import generate_shortlist, compute_combined_score, get_star_rating, generate_explainability
 from services.email_service import send_outreach_email
 
 # ── Data loading ──────────────────────────────────────────────────────────────
@@ -77,8 +77,6 @@ async def api_parse_jd(body: dict):
     jd_text = body.get("jd_text", "")
     if not jd_text.strip():
         raise HTTPException(400, "jd_text is required")
-    if not os.getenv("ANTHROPIC_API_KEY"):
-        raise HTTPException(400, "ANTHROPIC_API_KEY not set in backend/.env")
 
     try:
         parsed = parse_jd(jd_text)
@@ -125,6 +123,7 @@ async def api_match_candidates(body: dict):
 
         enriched.append({
             **r,
+            "match_breakdown": r.get("breakdown", {}),
             "name": c.get("name", ""),
             "email": c.get("email", ""),
             "location": c.get("location", ""),
@@ -137,6 +136,10 @@ async def api_match_candidates(body: dict):
             "combined_score": combined,
             "star_rating": stars,
             "recommendation": rec,
+            "explainability": generate_explainability(
+                c, jd, r["match_score"], interest_score,
+                r.get("breakdown", {}), signals_triggered
+            ),
         })
 
     return {"candidates": enriched, "total": len(enriched)}

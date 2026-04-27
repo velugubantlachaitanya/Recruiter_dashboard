@@ -19,7 +19,7 @@ function Avatar({ name, color }) {
 export default function CandidateCard({ candidate, index, onEngage, onInterview, loading }) {
   const [expanded, setExpanded] = useState(false)
   const color = AVATAR_COLORS[index % AVATAR_COLORS.length]
-  const bd = candidate.match_breakdown || {}
+  const bd = candidate.match_breakdown || candidate.breakdown || {}
   const stars = candidate.star_rating || 1
   const rec = candidate.recommendation || ''
   const recColor = rec.includes('Highly') ? 'text-emerald-400' : rec.includes('Strong') ? 'text-blue-400'

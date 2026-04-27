@@ -1,14 +1,7 @@
 # ============================================================
 # Scorer — Combined score, star rating, explainability
+# Pure open-source / rule-based, no external API required
 # ============================================================
-
-import anthropic
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-_client = None
 
 STAR_THRESHOLDS = [
     (85, 5, "🟢 Highly Recommended"),
@@ -32,13 +25,6 @@ def compute_combined_score(match_score: float, interest_score: float) -> float:
     return round(match_score * 0.6 + interest_score * 0.4, 1)
 
 
-def get_client() -> anthropic.Anthropic:
-    global _client
-    if _client is None:
-        _client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY", ""))
-    return _client
-
-
 def generate_explainability(
     candidate: dict,
     jd: dict,
@@ -47,26 +33,52 @@ def generate_explainability(
     breakdown: dict,
     signals: list,
 ) -> str:
-    """Generate a human-readable explainability sentence using Claude."""
-    client = get_client()
+    """
+    Generate a human-readable explainability sentence using rule-based logic.
+    Fully open-source — no external API needed.
+    """
+    name = candidate.get("name", "Candidate")
+    role = jd.get("role_title", "this role")
+    skills_score = breakdown.get("skills", 0)
+    exp_score = breakdown.get("experience", 0)
+    loc_score = breakdown.get("location", 0)
+    edu = candidate.get("education", {})
+    tier = edu.get("tier", 3)
+    inst = edu.get("institution", "")
+    exp_years = candidate.get("experience_years", 0)
 
-    prompt = f"""Write a single concise sentence (max 25 words) explaining why {candidate['name']} scored {match_score:.0f} match / {interest_score:.0f} interest for the {jd.get('role_title', 'role')}.
+    # Determine strongest dimension
+    dims = {
+        "skills alignment": skills_score,
+        "experience depth": exp_score,
+        "location fit": loc_score,
+    }
+    top_dim = max(dims, key=dims.get)
+    top_val = dims[top_dim]
 
-Key facts:
-- Skills score: {breakdown.get('skills', 0):.0f}/100
-- Experience score: {breakdown.get('experience', 0):.0f}/100
-- Location score: {breakdown.get('location', 0):.0f}/100
-- Education: {candidate.get('education', {}).get('institution', '')} (Tier {candidate.get('education', {}).get('tier', 3)})
-- Interest signals: {', '.join(signals) if signals else 'None'}
+    # Tier label
+    tier_label = {1: "Tier-1 institution", 2: "Tier-2 institution", 3: "university"}.get(tier, "university")
 
-Return ONLY the single sentence, no quotes."""
+    # Signal summary
+    if signals:
+        signal_part = f" with {len(signals)} engagement signal(s) including '{signals[0]}'"
+    else:
+        signal_part = ""
 
-    response = client.messages.create(
-        model="claude-sonnet-4-5",
-        max_tokens=80,
-        messages=[{"role": "user", "content": prompt}]
+    # Score verdict
+    if match_score >= 80:
+        verdict = "excellent match"
+    elif match_score >= 60:
+        verdict = "strong match"
+    elif match_score >= 40:
+        verdict = "moderate match"
+    else:
+        verdict = "partial match"
+
+    return (
+        f"{name} is a {verdict} for {role} — {top_dim} score {top_val:.0f}/100, "
+        f"{exp_years} yrs experience, graduated from {inst} ({tier_label}){signal_part}."
     )
-    return response.content[0].text.strip()
 
 
 def generate_shortlist(
@@ -93,17 +105,10 @@ def generate_shortlist(
         combined = compute_combined_score(match_score, interest_score)
         stars, recommendation = get_star_rating(combined)
 
-        # Generate explainability (skip for low-scoring candidates to save tokens)
-        if combined >= 40:
-            try:
-                explainability = generate_explainability(
-                    c, jd, match_score, interest_score,
-                    mr.get("breakdown", {}), er.get("signals_triggered", [])
-                )
-            except Exception:
-                explainability = _fallback_explainability(c, match_score, interest_score, mr.get("breakdown", {}))
-        else:
-            explainability = _fallback_explainability(c, match_score, interest_score, mr.get("breakdown", {}))
+        explainability = generate_explainability(
+            c, jd, match_score, interest_score,
+            mr.get("breakdown", {}), er.get("signals_triggered", [])
+        )
 
         entries.append({
             "candidate_id": cid,

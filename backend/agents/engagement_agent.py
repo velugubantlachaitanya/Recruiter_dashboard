@@ -1,15 +1,9 @@
 # ============================================================
-# Engagement Agent — Claude simulates outreach + interest scoring
+# Engagement Agent — Mock implementation (bypasses Claude API)
 # ============================================================
 
 import json
-import anthropic
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-_client = None
+import random
 
 # Interest signal points rubric
 SIGNAL_POINTS = {
@@ -32,14 +26,6 @@ SIGNAL_LABELS = {
     "has_open_source": "Open-source portfolio / GitHub activity",
 }
 
-
-def get_client() -> anthropic.Anthropic:
-    global _client
-    if _client is None:
-        _client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY", ""))
-    return _client
-
-
 def compute_interest_score(signals: dict) -> tuple[float, list]:
     """Calculate interest score from engagement signals. Returns (score, labels)."""
     total = 0.0
@@ -53,107 +39,65 @@ def compute_interest_score(signals: dict) -> tuple[float, list]:
 
 def simulate_outreach_conversation(candidate: dict, jd: dict) -> dict:
     """
-    Use Claude to simulate:
-    1. AI outreach email to candidate
-    2. Realistic candidate reply
-    3. Interest signals detected from reply
+    Mock implementation: Generates realistic email and reply based on candidate skills.
     """
-    client = get_client()
-
     matched_skills = list(
         set(s.lower() for s in jd.get("required_skills", []))
         & set(s.lower() for s in candidate.get("skills", []))
     )
 
-    prompt = f"""You are simulating a realistic AI recruiting outreach exchange.
+    skill_text = ", ".join(candidate.get("skills", [])[:3])
+    role = jd.get('role_title', 'Role')
 
-Candidate: {candidate['name']}, {candidate['experience_years']} years experience
-Current Role: inferred from skills: {', '.join(candidate['skills'][:4])}
-Location: {candidate['location']}
-Education: {candidate['education']['degree']} from {candidate['education']['institution']}
+    outreach_email = f"Hi {candidate['name']},\n\nI was really impressed by your background, particularly your experience with {skill_text}. We are currently looking for a {role} at our company and I believe you would be an excellent fit.\n\nWould you be open to a quick 15-minute chat this week to discuss the role?\n\nBest,\nRecruiting Team"
 
-Job Opening: {jd['role_title']} at {jd.get('location', 'Hyderabad, India')}
-Required Skills: {', '.join(jd.get('required_skills', []))}
-Skills Overlap: {', '.join(matched_skills) if matched_skills else 'indirect overlap'}
-Compensation: competitive + equity
+    is_interested = len(matched_skills) >= 2 or random.random() > 0.3
 
-Generate a realistic recruiting email exchange. Return ONLY valid JSON (no markdown):
-{{
-  "outreach_email": "the full outreach email text (3-4 paragraphs, professional but warm)",
-  "candidate_reply": "realistic candidate response (2-3 paragraphs, {'enthusiastic and asking questions' if len(matched_skills) >= 3 else 'polite but cautious, mentioning they are open to hearing more'})",
-  "is_interested": {"true" if len(matched_skills) >= 2 else "false or true randomly"},
-  "interest_signals": ["list of specific positive signals from the reply, e.g., 'Asked about tech stack', 'Shared GitHub profile', 'Mentioned availability']
-}}"""
-
-    response = client.messages.create(
-        model="claude-sonnet-4-5",
-        max_tokens=1200,
-        messages=[{"role": "user", "content": prompt}]
-    )
-
-    raw = response.content[0].text.strip()
-    if raw.startswith("```"):
-        raw = "\n".join(raw.split("\n")[1:])
-        if raw.endswith("```"):
-            raw = raw[:-3]
-
-    data = json.loads(raw.strip())
-
-    # If candidate replied positively, mark responded_to_outreach
-    if data.get("is_interested", False):
+    if is_interested:
+        candidate_reply = f"Hi there,\n\nThanks for reaching out! The {role} position sounds very interesting. I've been working a lot with {skill_text} recently and I'd love to learn more about the team and the tech stack.\n\nHere is a link to my GitHub profile. Let me know what times work best for you."
+        interest_signals = ["Expressed interest in role", "Asked about tech stack", "Shared GitHub profile"]
         candidate.setdefault("engagement_signals", {})["responded_to_outreach"] = True
+    else:
+        candidate_reply = f"Hi,\n\nThanks for reaching out. I'm currently happy at my current role and not looking to move right now. Please keep me in mind for future opportunities."
+        interest_signals = []
 
-    return data
+    return {
+        "outreach_email": outreach_email,
+        "candidate_reply": candidate_reply,
+        "is_interested": is_interested,
+        "interest_signals": interest_signals
+    }
 
 
 def run_ai_interview(candidate: dict, jd: dict) -> dict:
     """
-    Claude generates interview questions, simulates answers, evaluates.
-    Returns interview_score (0-100) and pass/fail.
+    Mock implementation: Generates realistic mock interview questions and scores.
     """
-    client = get_client()
+    role = jd.get('role_title', 'Engineer')
+    
+    questions = [
+        f"Can you explain a challenging project where you utilized {candidate['skills'][0] if candidate.get('skills') else 'your skills'}?",
+        f"How do you handle performance bottlenecks in a {role} environment?",
+        "Describe your approach to testing and ensuring code quality."
+    ]
 
-    prompt = f"""You are conducting an AI technical interview simulation.
+    simulated_answers = [
+        f"I recently used {candidate['skills'][0] if candidate.get('skills') else 'my core skills'} to optimize a data pipeline, reducing latency by 40%.",
+        "I typically start by profiling the application to identify the exact bottleneck, then I implement caching or database indexing.",
+        "I follow test-driven development and ensure we have solid unit and integration test coverage in our CI/CD pipeline."
+    ]
 
-Job: {jd['role_title']}
-Required Skills: {', '.join(jd.get('required_skills', []))}
-Candidate: {candidate['name']}, {candidate['experience_years']} yrs exp
-Skills: {', '.join(candidate['skills'])}
+    # Generate a good score (75-95)
+    overall_score = random.randint(75, 95)
+    passed = overall_score >= 80
 
-Generate a brief interview simulation. Return ONLY valid JSON:
-{{
-  "questions": ["Q1", "Q2", "Q3"],
-  "simulated_answers": ["A1 (realistic for this candidate's profile)", "A2", "A3"],
-  "scores_per_question": [80, 75, 90],
-  "overall_score": 82,
-  "evaluation": "2-sentence overall evaluation of the candidate's interview performance",
-  "passed": true
-}}
-
-Make scores realistic based on the candidate's skill overlap with the JD requirements."""
-
-    response = client.messages.create(
-        model="claude-sonnet-4-5",
-        max_tokens=1000,
-        messages=[{"role": "user", "content": prompt}]
-    )
-
-    raw = response.content[0].text.strip()
-    if raw.startswith("```"):
-        raw = "\n".join(raw.split("\n")[1:])
-        if raw.endswith("```"):
-            raw = raw[:-3]
-
-    data = json.loads(raw.strip())
-
-    # If passed, update engagement signals
-    if data.get("passed", False):
+    if passed:
         candidate.setdefault("engagement_signals", {})["completed_assessment"] = True
         candidate["engagement_signals"]["passed_assessment"] = True
 
     return {
-        "interview_score": data.get("overall_score", 70),
-        "passed": data.get("passed", False),
-        "questions": data.get("questions", []),
-        "evaluation": data.get("evaluation", ""),
+        "interview_score": overall_score,
+        "passed": passed,
+        "questions": questions,
+        "evaluation": f"{candidate['name']} communicated clearly and demonstrated strong technical proficiency, earning a solid score of {overall_score}."
     }
