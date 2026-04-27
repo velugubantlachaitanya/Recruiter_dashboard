@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import StarRating from './StarRating'
 import ScoreBar from './ScoreBar'
-import { viewResume, downloadResume } from '../lib/resumeUtils'
+import { downloadResume } from '../lib/resumeUtils'
 
 const REC_STYLE = {
   '🟢 Highly Recommended': 'text-emerald-400 bg-emerald-500/10 border-emerald-500/25',
@@ -13,13 +13,22 @@ const REC_STYLE = {
 
 function ResumeButtons({ candidateId, candidateName, resumeUrl }) {
   const [loading, setLoading] = useState(false)
+  const viewerUrl = resumeUrl
+    ? `https://docs.google.com/viewer?url=${encodeURIComponent(resumeUrl)}&embedded=false`
+    : null
   return (
     <div className="flex flex-col gap-1.5">
-      <button
-        onClick={() => viewResume(resumeUrl, candidateName)}
-        className="text-[10px] px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10 text-white/60 hover:text-white hover:border-purple-500/40 transition-colors cursor-pointer">
-        👁 View
-      </button>
+      {viewerUrl ? (
+        <a
+          href={viewerUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[10px] px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10 text-white/60 hover:text-white hover:border-purple-500/40 transition-colors text-center">
+          👁 View
+        </a>
+      ) : (
+        <span className="text-[10px] px-2.5 py-1 text-white/25 text-center">No resume</span>
+      )}
       <button
         onClick={() => downloadResume(candidateId, candidateName, resumeUrl, setLoading)}
         disabled={loading}
