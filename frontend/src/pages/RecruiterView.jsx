@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Loader2, BarChart3 } from 'lucide-react'
+import { apiFetch } from '../lib/api'
 import ShortlistTable from '../components/ShortlistTable'
 
 export default function RecruiterView() {
@@ -14,8 +15,8 @@ export default function RecruiterView() {
     if (!jdText.trim()) { setError('Paste a JD first.'); return }
     setLoading(true); setError(''); setShortlist([]); setParsedJD(null); setStats(null)
     try {
-      const res = await fetch('/api/full-pipeline', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
+      const res = await apiFetch('/api/full-pipeline', {
+        method: 'POST',
         body: JSON.stringify({ jd_text: jdText, engage_top_n: 8 })
       })
       const data = await res.json()

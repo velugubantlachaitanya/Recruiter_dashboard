@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Sparkles, Users, Trophy, Loader2, ChevronRight, AlertCircle } from 'lucide-react'
+import { apiFetch } from '../lib/api'
 import JDUploader from '../components/JDUploader'
 import CandidateCard from '../components/CandidateCard'
 import ShortlistTable from '../components/ShortlistTable'
@@ -43,8 +44,8 @@ export default function Dashboard() {
     setParsedJD(jd); setRawJD(jdText); setError('')
     setLoading(true); setLoadMsg('ML matching 50 candidates…')
     try {
-      const res = await fetch('/api/match-candidates', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
+      const res = await apiFetch('/api/match-candidates', {
+        method: 'POST',
         body: JSON.stringify({ jd })
       })
       const data = await res.json()
@@ -58,8 +59,8 @@ export default function Dashboard() {
   async function onEngage(candidateId) {
     setLoading(true); setLoadMsg('Simulating outreach conversation…')
     try {
-      const res = await fetch(`/api/engage/${candidateId}`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
+      const res = await apiFetch(`/api/engage/${candidateId}`, {
+        method: 'POST',
         body: JSON.stringify({ jd: parsedJD })
       })
       const data = await res.json()
@@ -80,8 +81,8 @@ export default function Dashboard() {
   async function onInterview(candidateId) {
     setLoading(true); setLoadMsg('Running AI interview simulation…')
     try {
-      const res = await fetch(`/api/interview/${candidateId}`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
+      const res = await apiFetch(`/api/interview/${candidateId}`, {
+        method: 'POST',
         body: JSON.stringify({ jd: parsedJD })
       })
       const data = await res.json()
@@ -98,8 +99,8 @@ export default function Dashboard() {
   async function onBuildShortlist() {
     setLoading(true); setLoadMsg('Building ranked shortlist…')
     try {
-      const res = await fetch('/api/shortlist', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
+      const res = await apiFetch('/api/shortlist', {
+        method: 'POST',
         body: JSON.stringify({ jd: parsedJD })
       })
       const data = await res.json()
@@ -114,8 +115,8 @@ export default function Dashboard() {
     setParsedJD(null); setCandidates([]); setShortlist([]); setEngagedMap({})
     setLoading(true); setLoadMsg('Running full AI pipeline (parse → match → engage top 6 → shortlist)…'); setError('')
     try {
-      const res = await fetch('/api/full-pipeline', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
+      const res = await apiFetch('/api/full-pipeline', {
+        method: 'POST',
         body: JSON.stringify({ jd_text: jdText, engage_top_n: 6 })
       })
       const data = await res.json()

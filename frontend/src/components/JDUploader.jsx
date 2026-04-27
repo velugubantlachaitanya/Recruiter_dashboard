@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { FileText, Sparkles, Loader2 } from 'lucide-react'
+import { apiFetch } from '../lib/api'
 
 const DEMO_JD = `Senior ML Engineer – AI Products
 Company: NovaBridge Technologies (Series B, Hyderabad + Remote)
@@ -37,9 +38,8 @@ export default function JDUploader({ onParsed, loading }) {
     if (!jdText.trim()) { setError('Please paste a job description first.'); return }
     setError('')
     try {
-      const res = await fetch('/api/parse-jd', {
+      const res = await apiFetch('/api/parse-jd', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ jd_text: jdText })
       })
       

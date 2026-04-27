@@ -1,5 +1,8 @@
 {
   "framework": "vite",
   "buildCommand": "npm run vercel-build",
-  "outputDirectory": "frontend/dist"
+  "outputDirectory": "frontend/dist",
+  "env": {
+    "VITE_API_URL": "@vite_api_url"
+  }
 }
