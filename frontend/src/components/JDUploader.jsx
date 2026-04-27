@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FileText, Sparkles, Loader2 } from 'lucide-react'
-import { apiFetch } from '../lib/api'
+import { apiFetch, extractError } from '../lib/api'
 
 const DEMO_JD = `Senior ML Engineer – AI Products
 Company: NovaBridge Technologies (Series B, Hyderabad + Remote)
@@ -44,14 +44,8 @@ export default function JDUploader({ onParsed, loading }) {
       })
       
       if (!res.ok) {
-        const errorText = await res.text()
-        console.error('Backend error:', errorText)
-        try {
-          const data = JSON.parse(errorText)
-          throw new Error(data.detail || 'Parse failed')
-        } catch {
-          throw new Error(`Server error: ${errorText.substring(0, 100)}`)
-        }
+        const msg = await extractError(res)
+        throw new Error(msg)
       }
       
       const data = await res.json()

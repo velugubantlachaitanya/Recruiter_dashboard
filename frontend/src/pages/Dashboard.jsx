@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Sparkles, Users, Trophy, Loader2, ChevronRight, AlertCircle } from 'lucide-react'
-import { apiFetch } from '../lib/api'
+import { apiFetch, extractError } from '../lib/api'
 import JDUploader from '../components/JDUploader'
 import CandidateCard from '../components/CandidateCard'
 import ShortlistTable from '../components/ShortlistTable'
@@ -48,8 +48,8 @@ export default function Dashboard() {
         method: 'POST',
         body: JSON.stringify({ jd })
       })
+      if (!res.ok) throw new Error(await extractError(res))
       const data = await res.json()
-      if (!res.ok) throw new Error(data.detail || 'Match failed')
       setCandidates(data.candidates || [])
       setStep(1); setLoading(false); setLoadMsg('')
     } catch(e) { setErr(e.message) }
@@ -63,8 +63,8 @@ export default function Dashboard() {
         method: 'POST',
         body: JSON.stringify({ jd: parsedJD })
       })
+      if (!res.ok) throw new Error(await extractError(res))
       const data = await res.json()
-      if (!res.ok) throw new Error(data.detail || 'Engage failed')
       setEngagedMap(m => ({ ...m, [candidateId]: data }))
       // Patch candidate in list
       setCandidates(cs => cs.map(c => {
@@ -85,8 +85,8 @@ export default function Dashboard() {
         method: 'POST',
         body: JSON.stringify({ jd: parsedJD })
       })
+      if (!res.ok) throw new Error(await extractError(res))
       const data = await res.json()
-      if (!res.ok) throw new Error(data.detail || 'Interview failed')
       setCandidates(cs => cs.map(c => {
         if ((c.candidate_id || c.id) === candidateId) return { ...c, interview: data }
         return c
@@ -103,8 +103,8 @@ export default function Dashboard() {
         method: 'POST',
         body: JSON.stringify({ jd: parsedJD })
       })
+      if (!res.ok) throw new Error(await extractError(res))
       const data = await res.json()
-      if (!res.ok) throw new Error(data.detail || 'Shortlist failed')
       setShortlist(data.shortlist || [])
       setStep(3); setLoading(false); setLoadMsg('')
     } catch(e) { setErr(e.message) }
@@ -119,8 +119,8 @@ export default function Dashboard() {
         method: 'POST',
         body: JSON.stringify({ jd_text: jdText, engage_top_n: 6 })
       })
+      if (!res.ok) throw new Error(await extractError(res))
       const data = await res.json()
-      if (!res.ok) throw new Error(data.detail || 'Pipeline failed')
       setParsedJD(data.parsed_jd)
       // Merge shortlist data back into candidates view
       const sl = data.shortlist || []

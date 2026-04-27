@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Loader2, BarChart3 } from 'lucide-react'
-import { apiFetch } from '../lib/api'
+import { apiFetch, extractError } from '../lib/api'
 import ShortlistTable from '../components/ShortlistTable'
 
 export default function RecruiterView() {
@@ -19,8 +19,8 @@ export default function RecruiterView() {
         method: 'POST',
         body: JSON.stringify({ jd_text: jdText, engage_top_n: 8 })
       })
+      if (!res.ok) throw new Error(await extractError(res))
       const data = await res.json()
-      if (!res.ok) throw new Error(data.detail || 'Pipeline failed')
       setShortlist(data.shortlist || [])
       setParsedJD(data.parsed_jd)
       const sl = data.shortlist || []
