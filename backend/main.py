@@ -10,6 +10,7 @@ from typing import Optional
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 from dotenv import load_dotenv
 
 # Load env
@@ -27,6 +28,8 @@ from agents.engagement_agent import (
 )
 from agents.scorer import generate_shortlist, compute_combined_score, get_star_rating, generate_explainability
 from services.email_service import send_outreach_email
+from services.resume_generator import generate_resume_pdf
+from services.resume_analyzer import analyze_resume, compute_resume_quality_score, compute_final_score
 
 # ── Data loading ──────────────────────────────────────────────────────────────
 DATA_PATH = Path(__file__).parent / "data" / "candidates.json"
@@ -69,6 +72,41 @@ _session: dict = {
 @app.get("/health")
 def health():
     return {"status": "ok", "service": "TalentScout AI", "candidates_loaded": len(load_candidates())}
+
+
+# ── Resume PDF (generate on-the-fly) ─────────────────────────────────────────
+@app.get("/api/resume/{candidate_id}")
+def api_resume(candidate_id: str):
+    """Generate and return a professional PDF resume for the candidate."""
+    candidates = load_candidates()
+    cand_map   = {c["id"]: c for c in candidates}
+    candidate  = cand_map.get(candidate_id)
+    if not candidate:
+        raise HTTPException(404, f"Candidate {candidate_id} not found")
+    try:
+        pdf_bytes = generate_resume_pdf(candidate)
+    except Exception as e:
+        raise HTTPException(500, f"Resume generation failed: {e}")
+    name_slug = candidate["name"].replace(" ", "_")
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{name_slug}_Resume.pdf"'},
+    )
+
+
+# ── Resume Analysis (AI-like scoring) ────────────────────────────────────────
+@app.get("/api/resume-analysis/{candidate_id}")
+def api_resume_analysis(candidate_id: str):
+    """Return AI resume analysis for a candidate against the current session JD."""
+    candidates = load_candidates()
+    cand_map   = {c["id"]: c for c in candidates}
+    candidate  = cand_map.get(candidate_id)
+    if not candidate:
+        raise HTTPException(404, f"Candidate {candidate_id} not found")
+    jd = _session.get("parsed_jd") or {}
+    analysis = analyze_resume(candidate, jd)
+    return {"candidate_id": candidate_id, "analysis": analysis}
 
 
 # ── Step 1: Parse JD ─────────────────────────────────────────────────────────
@@ -121,22 +159,36 @@ async def api_match_candidates(body: dict):
         combined = compute_combined_score(r["match_score"], interest_score)
         stars, rec = get_star_rating(combined)
 
+        # Resume quality + new combined score
+        resume_quality, rq_breakdown = compute_resume_quality_score(c, jd)
+        interview_data = None  # not run yet at match stage
+        final_score, scoring_method = compute_final_score(
+            r["match_score"], resume_quality, interest_score, interview_data
+        )
+        final_stars, final_rec = get_star_rating(final_score)
+        analysis = analyze_resume(c, jd)
+
         enriched.append({
             **r,
-            "match_breakdown": r.get("breakdown", {}),
-            "name": c.get("name", ""),
-            "email": c.get("email", ""),
-            "location": c.get("location", ""),
-            "skills": c.get("skills", []),
-            "experience_years": c.get("experience_years", 0),
-            "education": c.get("education", {}),
+            "match_breakdown":           r.get("breakdown", {}),
+            "name":                      c.get("name", ""),
+            "email":                     c.get("email", ""),
+            "location":                  c.get("location", ""),
+            "skills":                    c.get("skills", []),
+            "experience_years":          c.get("experience_years", 0),
+            "education":                 c.get("education", {}),
             "open_source_contributions": c.get("open_source_contributions", []),
-            "interest_score": interest_score,
-            "interest_signals": signals_triggered,
-            "combined_score": combined,
-            "star_rating": stars,
-            "recommendation": rec,
-            "explainability": generate_explainability(
+            "interest_score":            interest_score,
+            "interest_signals":          signals_triggered,
+            "resume_quality_score":      resume_quality,
+            "resume_quality_breakdown":  rq_breakdown,
+            "combined_score":            final_score,
+            "scoring_method":            scoring_method,
+            "star_rating":               final_stars,
+            "recommendation":            final_rec,
+            "capable_for_role":          analysis["capable_for_role"],
+            "resume_analysis":           analysis,
+            "explainability":            generate_explainability(
                 c, jd, r["match_score"], interest_score,
                 r.get("breakdown", {}), signals_triggered
             ),
