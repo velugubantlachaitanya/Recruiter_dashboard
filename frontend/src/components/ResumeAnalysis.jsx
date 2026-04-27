@@ -1,4 +1,5 @@
 import ScoreBar from './ScoreBar'
+import { handleResume } from '../lib/resumeUtils'
 
 const FIT_STYLES = {
   'Excellent Fit': 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30',
@@ -20,7 +21,7 @@ function Pill({ label, color }) {
   )
 }
 
-export default function ResumeAnalysis({ analysis, candidateId, candidateName, apiBase = '' }) {
+export default function ResumeAnalysis({ analysis, candidateId, candidateName }) {
   if (!analysis) return null
 
   const {
@@ -38,7 +39,6 @@ export default function ResumeAnalysis({ analysis, candidateId, candidateName, a
   } = analysis
 
   const fitStyle = FIT_STYLES[fit_label] || FIT_STYLES['Moderate Fit']
-  const resumeUrl = `${apiBase}/api/resume/${candidateId}`
 
   return (
     <div className="mt-4 space-y-4 border-t border-white/[0.06] pt-4">
@@ -59,23 +59,16 @@ export default function ResumeAnalysis({ analysis, candidateId, candidateName, a
           )}
         </div>
 
-        {/* Resume buttons */}
+        {/* Resume buttons — use fetch+blob to ensure proxy works */}
         <div className="flex gap-2">
-          <a
-            href={resumeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5 no-underline"
-          >
+          <button className="btn-secondary text-xs px-3 py-1.5"
+            onClick={() => handleResume(candidateId, candidateName, 'view')}>
             👁 View Resume
-          </a>
-          <a
-            href={resumeUrl}
-            download={`${candidateName?.replace(/ /g, '_')}_Resume.pdf`}
-            className="btn-primary text-xs px-3 py-1.5 flex items-center gap-1.5 no-underline"
-          >
+          </button>
+          <button className="btn-primary text-xs px-3 py-1.5"
+            onClick={() => handleResume(candidateId, candidateName, 'download')}>
             ⬇ Download PDF
-          </a>
+          </button>
         </div>
       </div>
 

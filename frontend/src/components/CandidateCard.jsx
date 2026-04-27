@@ -4,7 +4,7 @@ import StarRating from './StarRating'
 import ScoreBar from './ScoreBar'
 import ChatSimulator from './ChatSimulator'
 import ResumeAnalysis from './ResumeAnalysis'
-import { API_BASE } from '../lib/api'
+import { handleResume } from '../lib/resumeUtils'
 
 const AVATAR_COLORS = ['#7c6ff7','#5a8cf8','#34d399','#fbbf24','#f87171','#a78bfa']
 
@@ -42,7 +42,6 @@ export default function CandidateCard({ candidate, index, onEngage, onInterview,
     : rec.includes('Good') ? 'text-yellow-400' : rec.includes('Needs') ? 'text-orange-400' : 'text-red-400'
 
   const candidateId = candidate.candidate_id || candidate.id
-  const resumeUrl   = `${API_BASE}/api/resume/${candidateId}`
 
   return (
     <div className="card animate-fade-up mb-3 hover:border-purple-500/30 transition-all">
@@ -125,14 +124,14 @@ export default function CandidateCard({ candidate, index, onEngage, onInterview,
 
           {/* Actions */}
           <div className="flex gap-2 flex-wrap">
-            <a href={resumeUrl} target="_blank" rel="noopener noreferrer"
-              className="btn-secondary text-xs px-4 py-2 no-underline flex items-center gap-1.5">
+            <button className="btn-secondary text-xs px-4 py-2"
+              onClick={() => handleResume(candidateId, candidate.name, 'view')}>
               👁 View Resume
-            </a>
-            <a href={resumeUrl} download={`${candidate.name?.replace(/ /g,'_')}_Resume.pdf`}
-              className="btn-primary text-xs px-4 py-2 no-underline flex items-center gap-1.5">
+            </button>
+            <button className="btn-primary text-xs px-4 py-2"
+              onClick={() => handleResume(candidateId, candidate.name, 'download')}>
               ⬇ Download Resume
-            </a>
+            </button>
             <button className="btn-secondary text-xs px-4 py-2 ml-auto" onClick={() => onEngage(candidateId)} disabled={loading}>
               {loading ? '⏳' : '📧'} Simulate Outreach
             </button>
@@ -146,7 +145,6 @@ export default function CandidateCard({ candidate, index, onEngage, onInterview,
             analysis={candidate.resume_analysis}
             candidateId={candidateId}
             candidateName={candidate.name}
-            apiBase={API_BASE}
           />
 
           {/* Chat simulation */}

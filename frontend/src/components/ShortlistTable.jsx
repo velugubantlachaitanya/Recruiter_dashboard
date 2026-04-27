@@ -1,6 +1,6 @@
 import StarRating from './StarRating'
 import ScoreBar from './ScoreBar'
-import { API_BASE } from '../lib/api'
+import { handleResume } from '../lib/resumeUtils'
 
 const REC_STYLE = {
   '🟢 Highly Recommended': 'text-emerald-400 bg-emerald-500/10 border-emerald-500/25',
@@ -55,7 +55,6 @@ export default function ShortlistTable({ shortlist, onExport }) {
             </thead>
             <tbody>
               {shortlist.map((e, i) => {
-                const resumeUrl = `${API_BASE}/api/resume/${e.candidate_id}`
                 const interviewPassed = e.interview?.passed
                 return (
                   <tr key={e.candidate_id}
@@ -104,14 +103,16 @@ export default function ShortlistTable({ shortlist, onExport }) {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex flex-col gap-1.5">
-                        <a href={resumeUrl} target="_blank" rel="noopener noreferrer"
-                          className="text-[10px] px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10 text-white/60 hover:text-white hover:border-purple-500/40 transition-colors no-underline text-center">
+                        <button
+                          onClick={() => handleResume(e.candidate_id, e.name, 'view')}
+                          className="text-[10px] px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10 text-white/60 hover:text-white hover:border-purple-500/40 transition-colors cursor-pointer">
                           👁 View
-                        </a>
-                        <a href={resumeUrl} download={`${e.name?.replace(/ /g,'_')}_Resume.pdf`}
-                          className="text-[10px] px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/25 text-purple-300 hover:bg-purple-500/20 transition-colors no-underline text-center">
+                        </button>
+                        <button
+                          onClick={() => handleResume(e.candidate_id, e.name, 'download')}
+                          className="text-[10px] px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/25 text-purple-300 hover:bg-purple-500/20 transition-colors cursor-pointer">
                           ⬇ Download
-                        </a>
+                        </button>
                       </div>
                     </td>
                   </tr>
