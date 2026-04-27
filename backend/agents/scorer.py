@@ -111,6 +111,8 @@ def generate_shortlist(
             "name":                   c["name"],
             "email":                  c["email"],
             "location":               c["location"],
+            "resume_url":             c.get("resume_url", ""),
+            "portfolio_url":          c.get("portfolio_url", ""),
             "skills":                 c["skills"],
             "experience_years":       c["experience_years"],
             "education":              c["education"],

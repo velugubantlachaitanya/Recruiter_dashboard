@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import StarRating from './StarRating'
 import ScoreBar from './ScoreBar'
-import { handleResume } from '../lib/resumeUtils'
+import { viewResume, downloadResume } from '../lib/resumeUtils'
 
 const REC_STYLE = {
   '🟢 Highly Recommended': 'text-emerald-400 bg-emerald-500/10 border-emerald-500/25',
@@ -11,18 +11,17 @@ const REC_STYLE = {
   '🔴 Low Priority':       'text-red-400 bg-red-500/10 border-red-500/25',
 }
 
-function ResumeButtons({ candidateId, candidateName }) {
+function ResumeButtons({ candidateId, candidateName, resumeUrl }) {
   const [loading, setLoading] = useState(false)
   return (
     <div className="flex flex-col gap-1.5">
       <button
-        onClick={() => handleResume(candidateId, candidateName, 'view', setLoading)}
-        disabled={loading}
-        className="text-[10px] px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10 text-white/60 hover:text-white hover:border-purple-500/40 transition-colors cursor-pointer disabled:opacity-50">
-        {loading ? '⏳' : '👁 View'}
+        onClick={() => viewResume(resumeUrl, candidateName)}
+        className="text-[10px] px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10 text-white/60 hover:text-white hover:border-purple-500/40 transition-colors cursor-pointer">
+        👁 View
       </button>
       <button
-        onClick={() => handleResume(candidateId, candidateName, 'download', setLoading)}
+        onClick={() => downloadResume(candidateId, candidateName, resumeUrl, setLoading)}
         disabled={loading}
         className="text-[10px] px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/25 text-purple-300 hover:bg-purple-500/20 transition-colors cursor-pointer disabled:opacity-50">
         {loading ? '⏳' : '⬇ Download'}
@@ -123,7 +122,7 @@ export default function ShortlistTable({ shortlist, onExport }) {
                       </span>
                     </td>
                     <td className="px-4 py-3">
-                      <ResumeButtons candidateId={e.candidate_id} candidateName={e.name} />
+                      <ResumeButtons candidateId={e.candidate_id} candidateName={e.name} resumeUrl={e.resume_url} />
                     </td>
                   </tr>
                 )

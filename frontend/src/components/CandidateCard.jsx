@@ -4,7 +4,7 @@ import StarRating from './StarRating'
 import ScoreBar from './ScoreBar'
 import ChatSimulator from './ChatSimulator'
 import ResumeAnalysis from './ResumeAnalysis'
-import { handleResume } from '../lib/resumeUtils'
+import { viewResume, downloadResume } from '../lib/resumeUtils'
 
 const AVATAR_COLORS = ['#7c6ff7','#5a8cf8','#34d399','#fbbf24','#f87171','#a78bfa']
 
@@ -127,15 +127,14 @@ export default function CandidateCard({ candidate, index, onEngage, onInterview,
           <div className="flex gap-2 flex-wrap">
             <button
               className="btn-secondary text-xs px-4 py-2 flex items-center gap-1.5"
-              onClick={() => handleResume(candidateId, candidate.name, 'view', setResumeLoading)}
-              disabled={resumeLoading}>
-              {resumeLoading ? '⏳' : '👁'} View Resume
+              onClick={() => viewResume(candidate.resume_url, candidate.name)}>
+              👁 View Resume
             </button>
             <button
               className="btn-primary text-xs px-4 py-2 flex items-center gap-1.5"
-              onClick={() => handleResume(candidateId, candidate.name, 'download', setResumeLoading)}
+              onClick={() => downloadResume(candidateId, candidate.name, candidate.resume_url, setResumeLoading)}
               disabled={resumeLoading}>
-              {resumeLoading ? '⏳' : '⬇'} Download Resume
+              {resumeLoading ? '⏳ Generating…' : '⬇ Download Resume'}
             </button>
             <button className="btn-secondary text-xs px-4 py-2 ml-auto" onClick={() => onEngage(candidateId)} disabled={loading || resumeLoading}>
               {loading ? '⏳' : '📧'} Simulate Outreach
@@ -150,6 +149,7 @@ export default function CandidateCard({ candidate, index, onEngage, onInterview,
             analysis={candidate.resume_analysis}
             candidateId={candidateId}
             candidateName={candidate.name}
+            resumeUrl={candidate.resume_url}
           />
 
           {/* Chat simulation */}

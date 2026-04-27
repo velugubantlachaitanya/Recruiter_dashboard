@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import ScoreBar from './ScoreBar'
-import { handleResume } from '../lib/resumeUtils'
+import { viewResume, downloadResume } from '../lib/resumeUtils'
 
 const FIT_STYLES = {
   'Excellent Fit': 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30',
@@ -22,7 +22,7 @@ function Pill({ label, color }) {
   )
 }
 
-export default function ResumeAnalysis({ analysis, candidateId, candidateName }) {
+export default function ResumeAnalysis({ analysis, candidateId, candidateName, resumeUrl }) {
   const [resumeLoading, setResumeLoading] = useState(false)
   if (!analysis) return null
 
@@ -61,19 +61,18 @@ export default function ResumeAnalysis({ analysis, candidateId, candidateName })
           )}
         </div>
 
-        {/* Resume buttons — fetch+blob ensures proxy works */}
+        {/* Resume buttons */}
         <div className="flex gap-2">
           <button
             className="btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5"
-            onClick={() => handleResume(candidateId, candidateName, 'view', setResumeLoading)}
-            disabled={resumeLoading}>
-            {resumeLoading ? '⏳ Loading…' : '👁 View Resume'}
+            onClick={() => viewResume(resumeUrl, candidateName)}>
+            👁 View Resume
           </button>
           <button
             className="btn-primary text-xs px-3 py-1.5 flex items-center gap-1.5"
-            onClick={() => handleResume(candidateId, candidateName, 'download', setResumeLoading)}
+            onClick={() => downloadResume(candidateId, candidateName, resumeUrl, setResumeLoading)}
             disabled={resumeLoading}>
-            {resumeLoading ? '⏳ Loading…' : '⬇ Download PDF'}
+            {resumeLoading ? '⏳ Generating…' : '⬇ Download PDF'}
           </button>
         </div>
       </div>

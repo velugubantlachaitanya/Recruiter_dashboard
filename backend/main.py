@@ -178,6 +178,8 @@ async def api_match_candidates(body: dict):
             "experience_years":          c.get("experience_years", 0),
             "education":                 c.get("education", {}),
             "open_source_contributions": c.get("open_source_contributions", []),
+            "resume_url":                c.get("resume_url", ""),
+            "portfolio_url":             c.get("portfolio_url", ""),
             "interest_score":            interest_score,
             "interest_signals":          signals_triggered,
             "resume_quality_score":      resume_quality,
