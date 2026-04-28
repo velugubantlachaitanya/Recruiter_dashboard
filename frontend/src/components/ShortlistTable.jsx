@@ -11,24 +11,25 @@ const REC_STYLE = {
   '🔴 Low Priority':       'text-red-400 bg-red-500/10 border-red-500/25',
 }
 
-function ResumeButtons({ candidateId, candidateName }) {
-  // View endpoint: serves PDF inline so it opens in a browser tab
-  const viewUrl     = `${API_BASE}/api/resume/${candidateId}/view`
-  // Download endpoint: serves PDF as attachment so the browser saves the file
-  const downloadUrl = `${API_BASE}/api/resume/${candidateId}`
-  const safeName    = (candidateName || 'Candidate').replace(/\s+/g, '_')
+function ResumeButtons({ resumeUrl, candidateName }) {
+  const safeName = (candidateName || 'Candidate').replace(/\s+/g, '_')
+  // resumeUrl is a static path like /resumes/C001_Arjun_Sharma_Resume.pdf
+  // Vite proxy forwards /resumes/* → http://localhost:8000/resumes/*
+  const fileUrl = resumeUrl ? `${API_BASE}${resumeUrl}` : null
+
+  if (!fileUrl) return <span className="text-[10px] text-white/25">No resume</span>
 
   return (
     <div className="flex flex-col gap-1.5">
       <a
-        href={viewUrl}
+        href={fileUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="text-[10px] px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10 text-white/60 hover:text-white hover:border-purple-500/40 transition-colors text-center">
         👁 View
       </a>
       <a
-        href={downloadUrl}
+        href={fileUrl}
         download={`${safeName}_Resume.pdf`}
         className="text-[10px] px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/25 text-purple-300 hover:bg-purple-500/20 transition-colors text-center">
         ⬇ Download
@@ -129,7 +130,7 @@ export default function ShortlistTable({ shortlist, onExport }) {
                       </span>
                     </td>
                     <td className="px-4 py-3">
-                      <ResumeButtons candidateId={e.candidate_id} candidateName={e.name} />
+                      <ResumeButtons resumeUrl={e.resume_url} candidateName={e.name} />
                     </td>
                   </tr>
                 )

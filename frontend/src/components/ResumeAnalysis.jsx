@@ -21,8 +21,9 @@ function Pill({ label, color }) {
   )
 }
 
-export default function ResumeAnalysis({ analysis, candidateId, candidateName }) {
+export default function ResumeAnalysis({ analysis, candidateId, candidateName, resumeUrl }) {
   if (!analysis) return null
+  const fileUrl = resumeUrl ? `${API_BASE}${resumeUrl}` : null
 
   const {
     resume_quality_score: rqs = 0,
@@ -60,21 +61,23 @@ export default function ResumeAnalysis({ analysis, candidateId, candidateName })
         </div>
 
         {/* Resume buttons */}
-        <div className="flex gap-2">
-          <a
-            href={`${API_BASE}/api/resume/${candidateId}/view`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5">
-            👁 View Resume
-          </a>
-          <a
-            href={`${API_BASE}/api/resume/${candidateId}`}
-            download={`${(candidateName || 'Candidate').replace(/\s+/g,'_')}_Resume.pdf`}
-            className="btn-primary text-xs px-3 py-1.5 flex items-center gap-1.5">
-            ⬇ Download PDF
-          </a>
-        </div>
+        {fileUrl && (
+          <div className="flex gap-2">
+            <a
+              href={fileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5">
+              👁 View Resume
+            </a>
+            <a
+              href={fileUrl}
+              download={`${(candidateName || 'Candidate').replace(/\s+/g,'_')}_Resume.pdf`}
+              className="btn-primary text-xs px-3 py-1.5 flex items-center gap-1.5">
+              ⬇ Download PDF
+            </a>
+          </div>
+        )}
       </div>
 
       {/* Resume quality score bars */}

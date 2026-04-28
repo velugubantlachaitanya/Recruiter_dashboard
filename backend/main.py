@@ -11,6 +11,7 @@ from typing import Optional
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
+from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 
 # Load env
@@ -58,6 +59,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Serve pre-generated resume PDFs as static files
+# Each PDF is accessible at: /resumes/{id}_{name}_Resume.pdf
+RESUMES_DIR = Path(__file__).parent / "data" / "resumes"
+RESUMES_DIR.mkdir(parents=True, exist_ok=True)
+app.mount("/resumes", StaticFiles(directory=str(RESUMES_DIR)), name="resumes")
 
 # In-memory session storage (for demo)
 _session: dict = {

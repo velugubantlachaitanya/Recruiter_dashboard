@@ -6,6 +6,10 @@ import ChatSimulator from './ChatSimulator'
 import ResumeAnalysis from './ResumeAnalysis'
 import { API_BASE } from '../lib/api'
 
+function resumeFileUrl(resumeUrl) {
+  return resumeUrl ? `${API_BASE}${resumeUrl}` : null
+}
+
 const AVATAR_COLORS = ['#7c6ff7','#5a8cf8','#34d399','#fbbf24','#f87171','#a78bfa']
 
 function Avatar({ name, color }) {
@@ -124,19 +128,21 @@ export default function CandidateCard({ candidate, index, onEngage, onInterview,
 
           {/* Actions */}
           <div className="flex gap-2 flex-wrap">
-            <a
-              href={`${API_BASE}/api/resume/${candidateId}/view`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary text-xs px-4 py-2 flex items-center gap-1.5">
-              👁 View Resume
-            </a>
-            <a
-              href={`${API_BASE}/api/resume/${candidateId}`}
-              download={`${(candidate.name || 'Candidate').replace(/\s+/g,'_')}_Resume.pdf`}
-              className="btn-primary text-xs px-4 py-2 flex items-center gap-1.5">
-              ⬇ Download Resume
-            </a>
+            {resumeFileUrl(candidate.resume_url) && (<>
+              <a
+                href={resumeFileUrl(candidate.resume_url)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary text-xs px-4 py-2 flex items-center gap-1.5">
+                👁 View Resume
+              </a>
+              <a
+                href={resumeFileUrl(candidate.resume_url)}
+                download={`${(candidate.name || 'Candidate').replace(/\s+/g,'_')}_Resume.pdf`}
+                className="btn-primary text-xs px-4 py-2 flex items-center gap-1.5">
+                ⬇ Download Resume
+              </a>
+            </>)}
             <button className="btn-secondary text-xs px-4 py-2 ml-auto" onClick={() => onEngage(candidateId)} disabled={loading}>
               {loading ? '⏳' : '📧'} Simulate Outreach
             </button>
@@ -150,6 +156,7 @@ export default function CandidateCard({ candidate, index, onEngage, onInterview,
             analysis={candidate.resume_analysis}
             candidateId={candidateId}
             candidateName={candidate.name}
+            resumeUrl={candidate.resume_url}
           />
 
           {/* Chat simulation */}
