@@ -2,6 +2,7 @@ import { useState } from 'react'
 import StarRating from './StarRating'
 import ScoreBar from './ScoreBar'
 import { API_BASE } from '../lib/api'
+import ResumeModal from './ResumeModal'
 
 const REC_STYLE = {
   '🟢 Highly Recommended': 'text-emerald-400 bg-emerald-500/10 border-emerald-500/25',
@@ -11,37 +12,65 @@ const REC_STYLE = {
   '🔴 Low Priority':       'text-red-400 bg-red-500/10 border-red-500/25',
 }
 
-function ResumeButtons({ resumeUrl, candidateName }) {
+function ResumeButtons({ candidate, onPreview }) {
+  const { resume_url: resumeUrl, name: candidateName } = candidate
+  const [downloaded, setDownloaded] = useState(false)
   const safeName = (candidateName || 'Candidate').replace(/\s+/g, '_')
-  // resumeUrl is a static path like /resumes/C001_Arjun_Sharma_Resume.pdf
-  // Vite proxy forwards /resumes/* → http://localhost:8000/resumes/*
-  const fileUrl = resumeUrl ? `${API_BASE}${resumeUrl}` : null
+  const fileUrl  = resumeUrl ? `${API_BASE}${resumeUrl}` : null
 
   if (!fileUrl) return <span className="text-[10px] text-white/25">No resume</span>
 
+  function handleDownload() {
+    const link = document.createElement('a')
+    link.href     = fileUrl
+    link.download = `${safeName}_Resume.pdf`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    setDownloaded(true)
+    setTimeout(() => setDownloaded(false), 3000)
+    console.log('Resume Downloaded:', candidateName)
+  }
+
   return (
     <div className="flex flex-col gap-1.5">
+      {/* Preview inside app */}
+      <button
+        onClick={() => { onPreview(candidate); console.log('Resume Viewed:', candidateName) }}
+        className="text-[10px] px-2.5 py-1 rounded-lg bg-blue-500/10 border border-blue-500/25 text-blue-300 hover:bg-blue-500/20 transition-colors text-center">
+        👁 Preview
+      </button>
+      {/* Open in new tab */}
       <a
         href={fileUrl}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => console.log('Resume Opened in Tab:', candidateName)}
         className="text-[10px] px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10 text-white/60 hover:text-white hover:border-purple-500/40 transition-colors text-center">
-        👁 View
+        ↗ New Tab
       </a>
-      <a
-        href={fileUrl}
-        download={`${safeName}_Resume.pdf`}
-        className="text-[10px] px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/25 text-purple-300 hover:bg-purple-500/20 transition-colors text-center">
-        ⬇ Download
-      </a>
+      {/* Download */}
+      <button
+        onClick={handleDownload}
+        className={`text-[10px] px-2.5 py-1 rounded-lg border transition-colors text-center
+          ${downloaded
+            ? 'bg-emerald-500/10 border-emerald-500/25 text-emerald-300'
+            : 'bg-purple-500/10 border-purple-500/25 text-purple-300 hover:bg-purple-500/20'}`}>
+        {downloaded ? '✓ Saved!' : '⬇ Download'}
+      </button>
     </div>
   )
 }
 
 export default function ShortlistTable({ shortlist, onExport }) {
+  const [previewCandidate, setPreviewCandidate] = useState(null)
   if (!shortlist?.length) return null
 
   return (
+    <>
+    {previewCandidate && (
+      <ResumeModal candidate={previewCandidate} onClose={() => setPreviewCandidate(null)} />
+    )}
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-bold">Ranked Shortlist — {shortlist.length} Candidates</h2>
@@ -130,7 +159,7 @@ export default function ShortlistTable({ shortlist, onExport }) {
                       </span>
                     </td>
                     <td className="px-4 py-3">
-                      <ResumeButtons resumeUrl={e.resume_url} candidateName={e.name} />
+                      <ResumeButtons candidate={e} onPreview={setPreviewCandidate} />
                     </td>
                   </tr>
                 )
@@ -160,5 +189,6 @@ export default function ShortlistTable({ shortlist, onExport }) {
         ))}
       </div>
     </div>
+    </>
   )
 }

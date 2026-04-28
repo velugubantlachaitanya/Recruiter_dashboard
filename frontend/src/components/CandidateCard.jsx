@@ -5,6 +5,7 @@ import ScoreBar from './ScoreBar'
 import ChatSimulator from './ChatSimulator'
 import ResumeAnalysis from './ResumeAnalysis'
 import { API_BASE } from '../lib/api'
+import ResumeModal from './ResumeModal'
 
 function resumeFileUrl(resumeUrl) {
   return resumeUrl ? `${API_BASE}${resumeUrl}` : null
@@ -37,7 +38,9 @@ function InterviewBadge({ interview }) {
 }
 
 export default function CandidateCard({ candidate, index, onEngage, onInterview, loading }) {
-  const [expanded, setExpanded] = useState(false)
+  const [expanded, setExpanded]       = useState(false)
+  const [showResume, setShowResume]   = useState(false)
+  const [downloaded, setDownloaded]   = useState(false)
   const color    = AVATAR_COLORS[index % AVATAR_COLORS.length]
   const bd       = candidate.match_breakdown || candidate.breakdown || {}
   const stars    = candidate.star_rating || 1
@@ -48,6 +51,10 @@ export default function CandidateCard({ candidate, index, onEngage, onInterview,
   const candidateId = candidate.candidate_id || candidate.id
 
   return (
+    <>
+    {showResume && (
+      <ResumeModal candidate={candidate} onClose={() => setShowResume(false)} />
+    )}
     <div className="card animate-fade-up mb-3 hover:border-purple-500/30 transition-all">
       <div className="flex gap-4 items-start cursor-pointer" onClick={() => setExpanded(!expanded)}>
         <Avatar name={candidate.name} color={color} />
@@ -129,19 +136,36 @@ export default function CandidateCard({ candidate, index, onEngage, onInterview,
           {/* Actions */}
           <div className="flex gap-2 flex-wrap">
             {resumeFileUrl(candidate.resume_url) && (<>
+              {/* Preview inside app */}
+              <button
+                className="btn-secondary text-xs px-4 py-2 flex items-center gap-1.5 border-blue-500/30 text-blue-300 hover:bg-blue-500/10"
+                onClick={() => { setShowResume(true); console.log('Resume Viewed:', candidate.name) }}>
+                👁 Preview Resume
+              </button>
+              {/* Open in new tab */}
               <a
                 href={resumeFileUrl(candidate.resume_url)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary text-xs px-4 py-2 flex items-center gap-1.5">
-                👁 View Resume
+                ↗ New Tab
               </a>
-              <a
-                href={resumeFileUrl(candidate.resume_url)}
-                download={`${(candidate.name || 'Candidate').replace(/\s+/g,'_')}_Resume.pdf`}
-                className="btn-primary text-xs px-4 py-2 flex items-center gap-1.5">
-                ⬇ Download Resume
-              </a>
+              {/* Download */}
+              <button
+                className={`text-xs px-4 py-2 flex items-center gap-1.5 rounded-xl border font-semibold transition-all
+                  ${downloaded
+                    ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
+                    : 'btn-primary'}`}
+                onClick={() => {
+                  const link = document.createElement('a')
+                  link.href = resumeFileUrl(candidate.resume_url)
+                  link.download = `${(candidate.name||'Candidate').replace(/\s+/g,'_')}_Resume.pdf`
+                  document.body.appendChild(link); link.click(); document.body.removeChild(link)
+                  setDownloaded(true); setTimeout(() => setDownloaded(false), 3000)
+                  console.log('Resume Downloaded:', candidate.name)
+                }}>
+                {downloaded ? '✓ Downloaded!' : '⬇ Download Resume'}
+              </button>
             </>)}
             <button className="btn-secondary text-xs px-4 py-2 ml-auto" onClick={() => onEngage(candidateId)} disabled={loading}>
               {loading ? '⏳' : '📧'} Simulate Outreach
@@ -194,5 +218,6 @@ export default function CandidateCard({ candidate, index, onEngage, onInterview,
         </div>
       )}
     </div>
+    </>
   )
 }
