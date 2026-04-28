@@ -20,13 +20,21 @@ function ResumeButtons({ candidate, onPreview }) {
 
   if (!fileUrl) return <span className="text-[10px] text-white/25">No resume</span>
 
-  function handleDownload() {
-    const link = document.createElement('a')
-    link.href     = fileUrl
-    link.download = `${safeName}_Resume.pdf`
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
+  async function handleDownload() {
+    try {
+      const res  = await fetch(fileUrl)
+      const blob = await res.blob()
+      const url  = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href     = url
+      link.download = `${safeName}_Resume.pdf`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      setTimeout(() => URL.revokeObjectURL(url), 5000)
+    } catch {
+      window.open(fileUrl, '_blank')
+    }
     setDownloaded(true)
     setTimeout(() => setDownloaded(false), 3000)
     console.log('Resume Downloaded:', candidateName)

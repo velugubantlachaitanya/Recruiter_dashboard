@@ -156,11 +156,18 @@ export default function CandidateCard({ candidate, index, onEngage, onInterview,
                   ${downloaded
                     ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
                     : 'btn-primary'}`}
-                onClick={() => {
-                  const link = document.createElement('a')
-                  link.href = resumeFileUrl(candidate.resume_url)
-                  link.download = `${(candidate.name||'Candidate').replace(/\s+/g,'_')}_Resume.pdf`
-                  document.body.appendChild(link); link.click(); document.body.removeChild(link)
+                onClick={async () => {
+                  const url = resumeFileUrl(candidate.resume_url)
+                  const fname = `${(candidate.name||'Candidate').replace(/\s+/g,'_')}_Resume.pdf`
+                  try {
+                    const res  = await fetch(url)
+                    const blob = await res.blob()
+                    const burl = URL.createObjectURL(blob)
+                    const link = document.createElement('a')
+                    link.href = burl; link.download = fname
+                    document.body.appendChild(link); link.click(); document.body.removeChild(link)
+                    setTimeout(() => URL.revokeObjectURL(burl), 5000)
+                  } catch { window.open(url, '_blank') }
                   setDownloaded(true); setTimeout(() => setDownloaded(false), 3000)
                   console.log('Resume Downloaded:', candidate.name)
                 }}>
