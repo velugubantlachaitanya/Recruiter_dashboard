@@ -304,37 +304,89 @@ def make_linkedin(name):
     slug = name.lower().replace(" ", "-")
     return f"https://linkedin.com/in/{slug}"
 
+COMPANIES = [
+    "Flipkart","Swiggy","Zomato","CRED","Razorpay","Groww","Meesho","Ola","Paytm",
+    "PhonePe","Juspay","Browserstack","Freshworks","Zoho","Unacademy","Google","Microsoft",
+    "Amazon","Atlassian","Thoughtworks","Nutanix","Salesforce","Adobe","Walmart Labs","Uber"
+]
+
+OSS_OPTIONS = [
+    "Maintainer of popular open-source library (2k+ GitHub stars)",
+    "Core contributor to Apache open-source project (50+ PRs merged)",
+    "Active contributor to HuggingFace Transformers library",
+    "Published open-source CLI tool with 1k+ weekly downloads on PyPI",
+    "Top 3% Stack Overflow contributor (5k+ reputation)",
+    "Created widely-used GitHub Action with 500+ stars",
+    "Contributed to LangChain, FastAPI, and scikit-learn repositories",
+    "Organizer of local tech meetup with 200+ members",
+]
+
 def pick_skills(pool, n_required=6, n_preferred=3):
     required = random.sample(pool[:12], min(n_required, len(pool[:12])))
     preferred = random.sample(pool[12:] if len(pool) > 12 else pool, min(n_preferred, max(0, len(pool)-12)))
     return list(set(required + preferred))
 
+# ── Tier profile definitions ──────────────────────────────────────────────────
+# Each candidate gets a tier that controls YOE, education, n_projects, OSS
+# Distribution: 20 five-star, 25 four-star, 30 three-star, 15 two-star, 10 one-star
+
+TIER_PROFILES = [
+    # (label, yoe_range, edu_weights, n_projects, oss_prob, n_skills)
+    ("⭐⭐⭐⭐⭐",  (8, 14), [0.85, 0.15, 0.00], 4, 0.90, (9, 12)),  # 5-star
+    ("⭐⭐⭐⭐",   (5,  9), [0.55, 0.40, 0.05], 3, 0.65, (7, 10)),  # 4-star
+    ("⭐⭐⭐",    (3,  6), [0.30, 0.55, 0.15], 2, 0.40, (6,  9)),  # 3-star
+    ("⭐⭐",     (1,  4), [0.10, 0.50, 0.40], 1, 0.20, (5,  7)),  # 2-star
+    ("⭐",      (0,  2), [0.05, 0.35, 0.60], 0, 0.05, (3,  5)),  # 1-star
+]
+TIER_COUNTS = [20, 25, 30, 15, 10]
+
+# Flatten: assign a tier to each candidate index (0-99)
+tier_assignments = []
+for t_idx, count in enumerate(TIER_COUNTS):
+    tier_assignments.extend([t_idx] * count)
+random.shuffle(tier_assignments)
+
+TIER_EDUS = [
+    # tier1-heavy options
+    [e for e in EDUCATION_TIERS if e["tier"] == "tier1"],
+    EDUCATION_TIERS,
+    [e for e in EDUCATION_TIERS if e["tier"] in ("tier2", "tier3")],
+]
+
 # ── Generate candidates ───────────────────────────────────────────────────────
 
 candidates = []
 candidate_num = 1
+global_idx = 0
 
 for domain, cfg in DOMAINS.items():
     names = NAMES[domain]
     for i, name in enumerate(names[:cfg["count"]]):
         cid = f"C{candidate_num:03d}"
-        yoe = random.randint(1, 12)
-        skills = pick_skills(cfg["skills_pool"], n_required=random.randint(5,8), n_preferred=random.randint(2,4))
-        n_projects = random.randint(2, 4)
-        projects = random.sample(cfg["projects_pool"], min(n_projects, len(cfg["projects_pool"])))
-        education = random.choice(EDUCATION_TIERS)
-        oss_chance = random.random()
+        t_idx   = tier_assignments[global_idx % len(tier_assignments)]
+        t_label, yoe_range, edu_weights, n_proj_target, oss_prob, skill_range = TIER_PROFILES[t_idx]
+
+        yoe     = random.randint(*yoe_range)
+        n_skills = random.randint(*skill_range)
+        skills  = pick_skills(cfg["skills_pool"], n_required=min(n_skills, 10), n_preferred=max(0, min(3, n_skills - 5)))
+
+        # Projects — higher tiers get more impactful project descriptions
+        pool_size = len(cfg["projects_pool"])
+        n_proj    = min(n_proj_target, pool_size)
+        chosen_projects = random.sample(cfg["projects_pool"], n_proj) if n_proj > 0 else []
+
+        # Education weighted by tier
+        edu_pool_idx = random.choices([0, 1, 2], weights=edu_weights)[0]
+        edu_pool     = TIER_EDUS[edu_pool_idx]
+        education    = random.choice(edu_pool if edu_pool else EDUCATION_TIERS)
+
+        # OSS contributions
         open_source = []
-        if oss_chance > 0.5:
-            open_source = [random.choice([
-                f"Contributed to open-source {domain.split('/')[0]} projects on GitHub",
-                "Maintainer of popular Python utility library (800+ stars)",
-                "Core contributor to Apache open-source project",
-                f"Published {domain.split('/')[0].lower()} tutorials with 5k+ readers",
-                "Active on Stack Overflow (top 5% contributor)",
-            ])]
+        if random.random() < oss_prob:
+            n_oss = 2 if t_idx == 0 else 1
+            open_source = random.sample(OSS_OPTIONS, min(n_oss, len(OSS_OPTIONS)))
+
         location = random.choice(LOCATIONS)
-        match_score_seed = round(random.uniform(40, 97), 1)
 
         candidate = {
             "id": cid,
@@ -343,6 +395,7 @@ for domain, cfg in DOMAINS.items():
             "phone": f"+91-{random.randint(7000000000,9999999999)}",
             "location": location,
             "domain": domain,
+            "tier_label": t_label,
             "experience_years": yoe,
             "skills": skills,
             "education": {
@@ -351,25 +404,28 @@ for domain, cfg in DOMAINS.items():
                 "institution": education["institution"],
                 "tier": education["tier"],
             },
-            "current_role": f"{domain} at {''.join(random.choices(['TCS','Infosys','Wipro','HCL','Tech Mahindra','Flipkart','Swiggy','Zomato','CRED','Razorpay','Groww','Meesho','Ola','Paytm','PhonePe','Juspay','Browserstack','Freshworks','Zoho','Unacademy'], k=1))}",
-            "real_world_projects": [{"title": p.split(" using")[0].split(" with")[0][:50], "description": p} for p in projects],
+            "current_role": f"{domain} at {random.choice(COMPANIES)}",
+            "real_world_projects": [
+                {"title": p.split(" using")[0].split(" with")[0][:55], "description": p}
+                for p in chosen_projects
+            ],
             "open_source_contributions": open_source,
-            "resume_url": "",  # will be set to backend endpoint
+            "resume_url": "",
             "portfolio_url": make_github(name),
             "linkedin_url": make_linkedin(name),
             "engagement_signals": {
-                "responded_to_outreach": random.random() > 0.35,
-                "visited_career_page": random.random() > 0.4,
-                "applied_directly": random.random() > 0.6,
-                "has_open_source": len(open_source) > 0,
-                "referral": random.random() > 0.75,
+                "responded_to_outreach": t_idx <= 1 or random.random() > 0.4,
+                "visited_career_page":   t_idx <= 2 or random.random() > 0.5,
+                "applied_directly":      t_idx == 0 or random.random() > 0.6,
+                "has_open_source":       len(open_source) > 0,
+                "referral":              t_idx <= 1 and random.random() > 0.5,
             },
             "interview_score": None,
             "interview_passed": None,
-            "match_score_hint": match_score_seed,
         }
         candidates.append(candidate)
         candidate_num += 1
+        global_idx += 1
 
 out = Path(__file__).parent / "data" / "candidates.json"
 out.parent.mkdir(exist_ok=True)
@@ -377,8 +433,10 @@ with open(out, "w", encoding="utf-8") as f:
     json.dump(candidates, f, indent=2, ensure_ascii=False)
 
 print(f"Generated {len(candidates)} candidates -> {out}")
-domain_counts = {}
+tier_counts = {}
 for c in candidates:
-    domain_counts[c["domain"]] = domain_counts.get(c["domain"], 0) + 1
-for d, cnt in domain_counts.items():
-    print(f"  {d}: {cnt}")
+    tier_counts[c["tier_label"]] = tier_counts.get(c["tier_label"], 0) + 1
+for t in ["5-star","4-star","3-star","2-star","1-star"]:
+    star_label = {"5-star":"⭐⭐⭐⭐⭐","4-star":"⭐⭐⭐⭐","3-star":"⭐⭐⭐","2-star":"⭐⭐","1-star":"⭐"}[t]
+    cnt = tier_counts.get(star_label, 0)
+    print(f"  {t} ({star_label}): {cnt} candidates")

@@ -16,12 +16,19 @@ def compute_resume_quality_score(candidate: dict, jd: dict) -> tuple[float, dict
     """
     exp       = candidate.get("experience_years", 0)
     min_exp   = jd.get("min_experience_years", 3)
-    projects  = candidate.get("projects", [])
-    real_proj = [p for p in projects if p.get("is_real_world")]
-    oss       = candidate.get("open_source_contributions", [])
-    skills    = set(s.lower() for s in candidate.get("skills", []))
-    req_skills= set(s.lower() for s in jd.get("required_skills", []))
-    edu_tier  = candidate.get("education", {}).get("tier", 3)
+    # Support both data shapes: legacy "projects[].is_real_world" and new "real_world_projects[]"
+    legacy_proj  = [p for p in candidate.get("projects", []) if p.get("is_real_world")]
+    new_proj     = candidate.get("real_world_projects", [])
+    real_proj    = legacy_proj if legacy_proj else new_proj
+    oss          = candidate.get("open_source_contributions", [])
+    skills       = set(s.lower() for s in candidate.get("skills", []))
+    req_skills   = set(s.lower() for s in jd.get("required_skills", []))
+    raw_tier = candidate.get("education", {}).get("tier", 3)
+    # Support both "tier1"/"tier2"/"tier3" strings and integer 1/2/3
+    if isinstance(raw_tier, str):
+        edu_tier = int(raw_tier.replace("tier", "")) if raw_tier.startswith("tier") else 3
+    else:
+        edu_tier = int(raw_tier)
 
     # ── Years of Experience (30 pts) ──────────────────────────
     gap = exp - min_exp
@@ -29,6 +36,10 @@ def compute_resume_quality_score(candidate: dict, jd: dict) -> tuple[float, dict
         yoe_score = 30
     elif gap >= 3:
         yoe_score = 27
+    elif gap >= 2:
+        yoe_score = 24
+    elif gap >= 1:
+        yoe_score = 22
     elif gap >= 0:
         yoe_score = 20
     elif gap >= -1:
@@ -40,20 +51,31 @@ def compute_resume_quality_score(candidate: dict, jd: dict) -> tuple[float, dict
 
     # ── Real-World Projects (25 pts) ──────────────────────────
     n_real = len(real_proj)
-    impact_bonus = sum(1 for p in real_proj if p.get("impact"))
-    if n_real >= 3:
+    # Impact bonus: any project with measurable result in description
+    impact_keywords = [
+        "million", "m+", "m users", "k users", "k+", "% ", "tps", "tb/", "tvl",
+        "stars", "downloads", "saving", "auc", "tvl", "revenue", "reduced", "increased",
+        "deployed", "production", "scale", "users", "daily", "weekly",
+    ]
+    impact_bonus = sum(
+        1 for p in real_proj
+        if p.get("impact") or any(kw in (p.get("description", "") + p.get("title", "")).lower() for kw in impact_keywords)
+    )
+    if n_real >= 4:
         proj_score = 25
+    elif n_real >= 3:
+        proj_score = 23
     elif n_real == 2:
-        proj_score = 18
+        proj_score = 17
     elif n_real == 1:
         proj_score = 10
     else:
         proj_score = 0
-    proj_score = min(25, proj_score + min(impact_bonus, 3))
+    proj_score = min(25, proj_score + min(impact_bonus, 4))
 
     # Open-source bump (up to +5 absorbed into proj_score ceiling)
     if oss:
-        proj_score = min(25, proj_score + len(oss))
+        proj_score = min(25, proj_score + len(oss) * 2)
 
     # ── Technical Skills Match (25 pts) ───────────────────────
     if req_skills:
@@ -90,11 +112,13 @@ def analyze_resume(candidate: dict, jd: dict) -> dict:
     skills    = candidate.get("skills", [])
     req_skills= jd.get("required_skills", [])
     edu       = candidate.get("education", {})
-    tier      = edu.get("tier", 3)
+    raw_tier  = edu.get("tier", 3)
+    tier      = int(raw_tier.replace("tier","")) if isinstance(raw_tier, str) and raw_tier.startswith("tier") else int(raw_tier)
     inst      = edu.get("institution", "")
     degree    = edu.get("degree", "")
-    projects  = candidate.get("projects", [])
-    real_proj = [p for p in projects if p.get("is_real_world")]
+    legacy_proj = [p for p in candidate.get("projects", []) if p.get("is_real_world")]
+    new_proj    = candidate.get("real_world_projects", [])
+    real_proj   = legacy_proj if legacy_proj else new_proj
     oss       = candidate.get("open_source_contributions", [])
 
     req_set   = set(s.lower() for s in req_skills)
@@ -143,10 +167,9 @@ def analyze_resume(candidate: dict, jd: dict) -> dict:
 
     # ── Real-world projects ───────────────────────────────────
     if real_proj:
-        impacts = [p["impact"] for p in real_proj if p.get("impact")]
+        proj_titles = [p.get("title") or p.get("description", "")[:60] for p in real_proj[:2]]
         strengths.append(
-            f"{len(real_proj)} verified production project(s)"
-            + (f" — highlights: {'; '.join(impacts[:2])}" if impacts else "")
+            f"{len(real_proj)} real-world production project(s) — e.g. {'; '.join(proj_titles)}"
         )
     else:
         concerns.append(

@@ -75,7 +75,11 @@ def compute_match_score(jd: dict, candidate: dict) -> dict:
 
     # ── Education Tier (15%) ──────────────────────────────────
     tier_map = {1: 100.0, 2: 70.0, 3: 40.0}
-    edu_tier = candidate.get("education", {}).get("tier", 3)
+    raw_tier = candidate.get("education", {}).get("tier", 3)
+    if isinstance(raw_tier, str) and raw_tier.startswith("tier"):
+        edu_tier = int(raw_tier.replace("tier", ""))
+    else:
+        edu_tier = int(raw_tier)
     raw_edu = tier_map.get(edu_tier, 30.0)
     edu_component = raw_edu * 0.15
 

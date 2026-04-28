@@ -7,10 +7,10 @@
 from services.resume_analyzer import compute_resume_quality_score, compute_final_score, analyze_resume
 
 STAR_THRESHOLDS = [
-    (82, 5, "🟢 Highly Recommended"),
-    (68, 4, "🔵 Strong Candidate"),
-    (52, 3, "🟡 Good Potential"),
-    (38, 2, "🟠 Needs Review"),
+    (65, 5, "🟢 Highly Recommended"),
+    (52, 4, "🔵 Strong Candidate"),
+    (38, 3, "🟡 Good Potential"),
+    (24, 2, "🟠 Needs Review"),
     (0,  1, "🔴 Low Priority"),
 ]
 
@@ -41,7 +41,8 @@ def generate_explainability(
     exp_score   = breakdown.get("experience", 0)
     loc_score   = breakdown.get("location", 0)
     edu         = candidate.get("education", {})
-    tier        = edu.get("tier", 3)
+    raw_tier    = edu.get("tier", 3)
+    tier        = int(raw_tier.replace("tier","")) if isinstance(raw_tier, str) and raw_tier.startswith("tier") else int(raw_tier)
     inst        = edu.get("institution", "")
     exp_years   = candidate.get("experience_years", 0)
 

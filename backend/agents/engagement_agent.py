@@ -5,25 +5,31 @@
 import json
 import random
 
-# Interest signal points rubric
+# Interest signal points rubric (max = 100)
 SIGNAL_POINTS = {
-    "applied_to_job": 15,
+    "applied_to_job":        15,
+    "applied_directly":      15,  # alias used in candidate data
     "responded_to_outreach": 10,
-    "submitted_video_demo": 20,
-    "completed_assessment": 20,
-    "passed_assessment": 10,
-    "interview_scheduled": 15,
-    "has_open_source": 10,
+    "visited_career_page":    8,
+    "referral":              12,
+    "submitted_video_demo":  20,
+    "completed_assessment":  20,
+    "passed_assessment":     10,
+    "interview_scheduled":   15,
+    "has_open_source":       10,
 }
 
 SIGNAL_LABELS = {
-    "applied_to_job": "Applied to the job",
+    "applied_to_job":        "Applied to the job",
+    "applied_directly":      "Applied directly to the role",
     "responded_to_outreach": "Responded to outreach email",
-    "submitted_video_demo": "Submitted resume with video demo",
-    "completed_assessment": "Completed AI/automated assessment",
-    "passed_assessment": "Passed all assessment sections",
-    "interview_scheduled": "Attended/scheduled interview",
-    "has_open_source": "Open-source portfolio / GitHub activity",
+    "visited_career_page":   "Visited our careers page",
+    "referral":              "Referred by a team member",
+    "submitted_video_demo":  "Submitted resume with video demo",
+    "completed_assessment":  "Completed AI/automated assessment",
+    "passed_assessment":     "Passed all assessment sections",
+    "interview_scheduled":   "Attended/scheduled interview",
+    "has_open_source":       "Open-source portfolio / GitHub activity",
 }
 
 def compute_interest_score(signals: dict) -> tuple[float, list]:
